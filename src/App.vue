@@ -1,33 +1,65 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="#">Easy Cube</b-navbar-brand>
+    <el-container>
+      <el-header>
+        <el-menu :default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+          <el-menu-item index="1"><router-link to="/">处理中心</router-link></el-menu-item>
+          <el-menu-item index="2"><router-link to="/overall">处理中心</router-link></el-menu-item>
+          <el-menu-item index="3"><router-link to="/">消息中心</router-link></el-menu-item>
+          <el-menu-item index="4"><router-link to="/">订单管理</router-link></el-menu-item>
+        </el-menu>
+      </el-header>
+      <el-main>
+        <router-view/>
+      </el-main>
+      <el-footer>footer</el-footer>
+    </el-container>
 
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <router-link to="/overall"><b-nav-item>function1</b-nav-item></router-link>
-          <b-nav-item href="#">function2</b-nav-item>
-          <b-nav-item href="#">function3</b-nav-item>
-          <b-nav-item href="#">function4</b-nav-item>
-        </b-navbar-nav>
-        <!-- Right aligned nav items -->
-        <b-navbar-brand></b-navbar-brand>
-      </b-collapse>
-    </b-navbar>
-    <img src="./assets/logo.png">
-    <router-view/>
   </div>
 </template>
 
 <script>
+// import CubeCore from "./components/CubeCore";
 export default {
-  name: 'App'
+    name: 'App',
+    // components: {CubeCore},
 }
 </script>
 
 <style>
+  .el-header, .el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+  }
+
+  .el-aside {
+    background-color: #D3DCE6;
+    color: #333;
+    text-align: center;
+    line-height: 200px;
+  }
+
+  .el-main {
+    background-color: #E9EEF3;
+    color: #333;
+    text-align: center;
+    line-height: 160px;
+  }
+
+  body > .el-container {
+    margin-bottom: 40px;
+  }
+
+  .el-container:nth-child(5) .el-aside,
+  .el-container:nth-child(6) .el-aside {
+    line-height: 260px;
+  }
+
+  .el-container:nth-child(7) .el-aside {
+    line-height: 320px;
+  }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -36,4 +68,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 </style>

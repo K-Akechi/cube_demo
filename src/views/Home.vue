@@ -1,12 +1,15 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <div><CubeCore></CubeCore></div>
   </div>
 </template>
 
 <script>
+import CubeCore from "../components/CubeCore";
 export default {
-  name: 'HelloWorld',
+  name: 'Home',
+  components: {CubeCore},
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
