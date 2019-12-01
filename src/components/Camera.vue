@@ -11,27 +11,27 @@
   <el-row :gutter="20">
     <el-col :span="4">
       <el-row><canvas ref="canvas1" width="120" height="120" v-on:load="canvas()"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true">Red</el-button></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 1">Red</el-button></el-row>
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas2" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true">Blue</el-button></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 2">Blue</el-button></el-row>
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas3" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true">Green</el-button></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 3">Green</el-button></el-row>
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas4" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true">Orange</el-button></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 4">Orange</el-button></el-row>
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas5" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true">Yellow</el-button></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 5">Yellow</el-button></el-row>
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas6" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true">White</el-button></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 6">White</el-button></el-row>
     </el-col>
     <el-dialog width="40%" title="snap" :visible.sync="innerVisible" ref="dialog2" @open="open()" append-to-body>
 
