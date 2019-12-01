@@ -1,17 +1,17 @@
 <template>
   <el-row :gutter="20">
-    <div class="sub-title">circle</div>
     <div class="demo-basic--circle">
       <el-col :span="8">
         <el-row><canvas ref="canvas" width="150" height="150"></canvas></el-row>
         <el-row><el-button type="text" @click="innerVisible = true">点击打开录入界面</el-button></el-row>
       </el-col>
-      <el-col :span="8"><div class="block"></div><video ref="video" width="240" height="240" autoplay></video></el-col>
-      <el-col :span="8"><div class="block"></div></el-col>
+      <el-col :span="8"></el-col>
+      <el-col :span="8"></el-col>
     </div>
-    <el-dialog width="30%" title="snap" :visible.sync="innerVisible" v-on:load="camera('environment')" append-to-body>
+    <el-dialog width="30%" title="snap" :visible.sync="innerVisible" ref="dialog" @open="open()" append-to-body>
 
       <div slot="footer" class="dialog-footer">
+        <video ref="video" width="240" height="240" autoplay></video>
         <el-button @click="innerVisible = false">取 消</el-button>
         <el-button ref="snap" type="primary" @click="innerVisible = false">拍 摄</el-button>
       </div>
@@ -26,7 +26,7 @@
     export default {
         data: () => ({
             video: {},
-            localstream: undefined,
+            // localstream: undefined,
             innerVisible: false
         }),
         methods: {
@@ -50,10 +50,15 @@
                                 this.$refs.video.play();
                             });
                     });
+            },
+
+            open(){
+                this.camera('environment')
             }
         },
         mounted () {
-            this.camera('environment');
+            this.$refs.dialog.open();
+            // this.camera('environment');
         }
     };
 </script>
@@ -67,5 +72,8 @@
   /*}*/
   .el-col {
     border-radius: 4px;
+  }
+  video{
+    object-fit: fill;
   }
 </style>
