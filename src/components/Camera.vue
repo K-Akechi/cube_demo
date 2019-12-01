@@ -1,7 +1,7 @@
 <template>
   <div>
   <el-button type="text" @click="outerVisible = true">点击打开录入界面</el-button>
-  <el-dialog title="魔方录入" :visible.sync="outerVisible" ref="dialog1">
+  <el-dialog title="魔方录入" :visible.sync="outerVisible" ref="dialog1" width="80%">
   <!--    <el-dialog-->
   <!--      width="30%"-->
   <!--      title="内层 Dialog"-->
