@@ -124,7 +124,7 @@
                 else {
                     cxt = this.$refs.canvas6.getContext('2d')
                 }
-                cxt.drawImage(this.video, 0, 0, 240, 240);
+                cxt.drawImage(this.$refs.video, 0, 0, 240, 240);
                 this.innerVisible = false
             }
         },
