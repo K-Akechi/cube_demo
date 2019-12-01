@@ -66,7 +66,7 @@ export default {
   name: 'CubeCore',
   data() {
     return {
-      title: 'Rubik Cube',
+      title: 'Rubik\'s Cube',
       rotateX: -35,
       rotateY: -45,
       rotateing: false,

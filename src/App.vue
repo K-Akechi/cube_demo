@@ -12,7 +12,7 @@
       <el-main>
         <router-view/>
       </el-main>
-      <el-footer>footer</el-footer>
+      <el-footer height="50px"></el-footer>
     </el-container>
 
   </div>
@@ -49,7 +49,7 @@ export default {
   }
 
   body > .el-container {
-    margin-bottom: 40px;
+    margin-bottom: 10px;
   }
 
   .el-container:nth-child(5) .el-aside,
@@ -60,13 +60,17 @@ export default {
   .el-container:nth-child(7) .el-aside {
     line-height: 320px;
   }
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 1px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
 }
 
 </style>

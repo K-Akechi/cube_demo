@@ -12,7 +12,7 @@ export default {
   components: {CubeCore},
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Playground'
     }
   }
 }

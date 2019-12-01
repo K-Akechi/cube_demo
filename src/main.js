@@ -6,11 +6,13 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
+import * as THREE from 'three'
 
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(ElementUI)
+Vue.use(THREE)
 
 /* eslint-disable no-new */
 new Vue({
