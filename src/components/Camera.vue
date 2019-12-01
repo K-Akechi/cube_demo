@@ -1,28 +1,22 @@
 <template>
-  <div>
   <el-row :gutter="20">
     <div class="sub-title">circle</div>
     <div class="demo-basic--circle">
       <el-col :span="8">
-        <canvas ref="canvas" width="150" height="150">
-        </canvas>
-        <el-button type="text" @click="innerVisible = true">点击打开录入界面</el-button>
+        <el-row><canvas ref="canvas" width="150" height="150"></canvas></el-row>
+        <el-row><el-button type="text" @click="innerVisible = true">点击打开录入界面</el-button></el-row>
       </el-col>
-      <el-col :span="8"><div class="block"></div></el-col>
+      <el-col :span="8"><div class="block"></div><video ref="video" width="240" height="240" autoplay></video></el-col>
       <el-col :span="8"><div class="block"></div></el-col>
     </div>
-  </el-row>
     <el-dialog width="30%" title="snap" :visible.sync="innerVisible" v-on:load="camera('environment')" append-to-body>
-      <video ref="video" width="480" height="480" autoplay></video>
+
       <div slot="footer" class="dialog-footer">
         <el-button @click="innerVisible = false">取 消</el-button>
         <el-button ref="snap" type="primary" @click="innerVisible = false">拍 摄</el-button>
       </div>
     </el-dialog>
-  <el-row>
-
   </el-row>
-  </div>
 </template>
 
 <script>
@@ -71,7 +65,7 @@
   /*   margin-bottom: 0;*/
   /* }*/
   /*}*/
-  /*.el-col {*/
-  /*  border-radius: 4px;*/
-  /*}*/
+  .el-col {
+    border-radius: 4px;
+  }
 </style>
