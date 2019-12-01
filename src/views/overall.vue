@@ -1,14 +1,14 @@
 <template>
     <div>
-      <Camera></Camera>
+      <Dialog></Dialog>
     </div>
 </template>
 
 <script>
-  import Camera from "../components/Camera";
+  import Dialog from "../components/Dialog";
     export default {
         name: 'overall',
-        components: {Camera},
+        components: {Dialog},
         data(){
             return{
                 content:"this is the overall representation page"

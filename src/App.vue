@@ -2,7 +2,7 @@
   <div id="app">
     <el-container>
       <el-header>
-        <el-menu :default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
           <el-menu-item index="1"><router-link to="/">处理中心</router-link></el-menu-item>
           <el-menu-item index="2"><router-link to="/overall">处理中心</router-link></el-menu-item>
           <el-menu-item index="3"><router-link to="/">消息中心</router-link></el-menu-item>
@@ -22,6 +22,16 @@
 // import CubeCore from "./components/CubeCore";
 export default {
     name: 'App',
+    data() {
+        return {
+            activeIndex: '1',
+        };
+    },
+    methods: {
+        handleSelect(key, keyPath) {
+            console.log(key, keyPath);
+        }
+    }
     // components: {CubeCore},
 }
 </script>
