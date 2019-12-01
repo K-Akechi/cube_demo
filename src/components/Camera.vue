@@ -1,22 +1,52 @@
 <template>
+  <div>
+  <el-button type="text" @click="outerVisible = true">点击打开录入界面</el-button>
+  <el-dialog title="魔方录入" :visible.sync="outerVisible" ref="dialog1">
+  <!--    <el-dialog-->
+  <!--      width="30%"-->
+  <!--      title="内层 Dialog"-->
+  <!--      :visible.sync="innerVisible"-->
+  <!--      append-to-body>-->
+  <!--    </el-dialog>-->
   <el-row :gutter="20">
-    <div class="demo-basic--circle">
-      <el-col :span="8">
-        <el-row><canvas ref="canvas" width="150" height="150"></canvas></el-row>
-        <el-row><el-button type="text" @click="innerVisible = true">点击打开录入界面</el-button></el-row>
-      </el-col>
-      <el-col :span="8"></el-col>
-      <el-col :span="8"></el-col>
-    </div>
-    <el-dialog width="30%" title="snap" :visible.sync="innerVisible" ref="dialog" @open="open()" append-to-body>
+    <el-col :span="4">
+      <el-row><canvas ref="canvas1" width="150" height="150" v-on:load="canvas()"></canvas></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true">Red</el-button></el-row>
+    </el-col>
+    <el-col :span="4">
+      <el-row><canvas ref="canvas2" width="150" height="150"></canvas></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true">Blue</el-button></el-row>
+    </el-col>
+    <el-col :span="4">
+      <el-row><canvas ref="canvas3" width="150" height="150"></canvas></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true">Green</el-button></el-row>
+    </el-col>
+    <el-col :span="4">
+      <el-row><canvas ref="canvas4" width="150" height="150"></canvas></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true">Orange</el-button></el-row>
+    </el-col>
+    <el-col :span="4">
+      <el-row><canvas ref="canvas5" width="150" height="150"></canvas></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true">Yellow</el-button></el-row>
+    </el-col>
+    <el-col :span="4">
+      <el-row><canvas ref="canvas6" width="150" height="150"></canvas></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true">White</el-button></el-row>
+    </el-col>
+    <el-dialog width="40%" title="snap" :visible.sync="innerVisible" ref="dialog2" @open="open()" append-to-body>
 
       <div slot="footer" class="dialog-footer">
         <video ref="video" width="240" height="240" autoplay></video>
         <el-button @click="innerVisible = false">取 消</el-button>
-        <el-button ref="snap" type="primary" @click="innerVisible = false">拍 摄</el-button>
+        <el-button ref="snap" type="primary" @click="draw()">拍 摄</el-button>
       </div>
     </el-dialog>
   </el-row>
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="outerVisible = false">取 消</el-button>
+    <el-button type="primary" @click="outerVisible = false">提 交</el-button>
+  </div>
+  </el-dialog></div>
 </template>
 
 <script>
@@ -27,9 +57,27 @@
         data: () => ({
             video: {},
             // localstream: undefined,
-            innerVisible: false
+            currentNumber: 0,
+            imageFlag: [{},{},{},{},{},{}],
+            innerVisible: false,
+            outerVisible: false
         }),
         methods: {
+            canvas(){
+                let cxt1 = this.$refs.canvas1.getContext('2d');
+                let cxt2 = this.$refs.canvas2.getContext('2d');
+                let cxt3 = this.$refs.canvas3.getContext('2d');
+                let cxt4 = this.$refs.canvas4.getContext('2d');
+                let cxt5 = this.$refs.canvas5.getContext('2d');
+                let cxt6 = this.$refs.canvas6.getContext('2d');
+                cxt1.strokeStyle = "#c50209";
+                cxt2.strokeStyle = "#0500c1";
+                cxt3.strokeStyle = "#138804";
+                cxt4.strokeStyle = "#f9640a";
+                cxt5.strokeStyle = "#f9fd0c";
+                cxt6.strokeStyle = "#f7f8f5";
+            },
+
             camera (face) {
                 this.stop();
                 this.gum(face);
@@ -54,10 +102,35 @@
 
             open(){
                 this.camera('environment')
+            },
+
+            draw(){
+                let cxt;
+                if (this.currentNumber === 1) {
+                    cxt = this.$refs.canvas1.getContext('2d')
+                }
+                else if (this.currentNumber === 2){
+                    cxt = this.$refs.canvas2.getContext('2d')
+                }
+                else if (this.currentNumber === 3){
+                    cxt = this.$refs.canvas3.getContext('2d')
+                }
+                else if (this.currentNumber === 4){
+                    cxt = this.$refs.canvas4.getContext('2d')
+                }
+                else if (this.currentNumber === 5){
+                    cxt = this.$refs.canvas5.getContext('2d')
+                }
+                else {
+                    cxt = this.$refs.canvas6.getContext('2d')
+                }
+                cxt.drawImage(this.video, 0, 0, 240, 240);
+                this.innerVisible = false
             }
         },
         mounted () {
-            this.$refs.dialog.open();
+            // this.canvas()
+            // this.$refs.dialog2.open();
             // this.camera('environment');
         }
     };
