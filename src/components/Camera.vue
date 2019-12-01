@@ -10,33 +10,33 @@
   <!--    </el-dialog>-->
   <el-row :gutter="20">
     <el-col :span="4">
-      <el-row><canvas ref="canvas1" width="150" height="150" v-on:load="canvas()"></canvas></el-row>
+      <el-row><canvas ref="canvas1" width="120" height="120" v-on:load="canvas()"></canvas></el-row>
       <el-row><el-button type="text" @click="innerVisible = true">Red</el-button></el-row>
     </el-col>
     <el-col :span="4">
-      <el-row><canvas ref="canvas2" width="150" height="150"></canvas></el-row>
+      <el-row><canvas ref="canvas2" width="120" height="120"></canvas></el-row>
       <el-row><el-button type="text" @click="innerVisible = true">Blue</el-button></el-row>
     </el-col>
     <el-col :span="4">
-      <el-row><canvas ref="canvas3" width="150" height="150"></canvas></el-row>
+      <el-row><canvas ref="canvas3" width="120" height="120"></canvas></el-row>
       <el-row><el-button type="text" @click="innerVisible = true">Green</el-button></el-row>
     </el-col>
     <el-col :span="4">
-      <el-row><canvas ref="canvas4" width="150" height="150"></canvas></el-row>
+      <el-row><canvas ref="canvas4" width="120" height="120"></canvas></el-row>
       <el-row><el-button type="text" @click="innerVisible = true">Orange</el-button></el-row>
     </el-col>
     <el-col :span="4">
-      <el-row><canvas ref="canvas5" width="150" height="150"></canvas></el-row>
+      <el-row><canvas ref="canvas5" width="120" height="120"></canvas></el-row>
       <el-row><el-button type="text" @click="innerVisible = true">Yellow</el-button></el-row>
     </el-col>
     <el-col :span="4">
-      <el-row><canvas ref="canvas6" width="150" height="150"></canvas></el-row>
+      <el-row><canvas ref="canvas6" width="120" height="120"></canvas></el-row>
       <el-row><el-button type="text" @click="innerVisible = true">White</el-button></el-row>
     </el-col>
     <el-dialog width="40%" title="snap" :visible.sync="innerVisible" ref="dialog2" @open="open()" append-to-body>
 
       <div slot="footer" class="dialog-footer">
-        <video ref="video" width="240" height="240" autoplay></video>
+        <video ref="video" width="120" height="120" autoplay></video>
         <el-button @click="innerVisible = false">取 消</el-button>
         <el-button ref="snap" type="primary" @click="draw()">拍 摄</el-button>
       </div>
@@ -124,7 +124,8 @@
                 else {
                     cxt = this.$refs.canvas6.getContext('2d')
                 }
-                cxt.drawImage(this.$refs.video, 0, 0, 240, 240);
+                cxt.drawImage(this.$refs.video, 0, 0, 120, 120);
+                console.log(this.currentNumber);
                 this.innerVisible = false
             }
         },
