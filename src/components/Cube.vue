@@ -61,14 +61,18 @@ export default {
     this.y = this.position[1];
     this.z = this.position[2];
     if (this.position[1] == 1) {
-      this.color.y1 = '#0500c1'
+      // this.color.y1 = '#0500c1'
+        this.color.y1 = '#138804'
     } else if (this.position[1] == 3) {
-      this.color.y3 = '#138804'
+      // this.color.y3 = '#138804'
+        this.color.y3 = '#0500c1'
     }
     if (this.position[2] == 1) {
-      this.color.z1 = '#f7f8f5'
+      // this.color.z1 = '#f7f8f5'
+        this.color.z1 = '#f9fd0c'
     } else if (this.position[2] == 3) {
-      this.color.z3 = '#f9fd0c'
+      // this.color.z3 = '#f9fd0c'
+        this.color.z3 = '#f7f8f5'
     }
     if (this.position[0] == 1) {
       this.color.x1 = '#f9640a'
@@ -116,10 +120,10 @@ export default {
         }
         transformOrigin += ' -1.1em'
       } else if (this.position[0] == 2) {
-        transform += ' translateZ(-0em)'
+        transform += ' translateZ(-0em)';
         transformOrigin += ' 0em'
       }
-      transform += ` rotateX(${this.rotateX * 90}deg) rotateY(${this.rotateY * 90}deg) rotateZ(${this.rotateZ * 90}deg)`
+      transform += ` rotateX(${this.rotateX * 90}deg) rotateY(${this.rotateY * 90}deg) rotateZ(${this.rotateZ * 90}deg)`;
       return {
         transform,
         transformOrigin,

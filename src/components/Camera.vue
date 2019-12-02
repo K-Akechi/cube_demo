@@ -11,7 +11,7 @@
   <el-row :gutter="20">
     <el-col :span="4">
       <el-row><canvas ref="canvas1" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 1">Red</el-button></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 1">Yellow</el-button></el-row>
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas2" width="120" height="120"></canvas></el-row>
@@ -19,19 +19,19 @@
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas3" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 3">Green</el-button></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 3">Orange</el-button></el-row>
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas4" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 4">Orange</el-button></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 4">White</el-button></el-row>
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas5" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 5">Yellow</el-button></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 5">Green</el-button></el-row>
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas6" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 6">White</el-button></el-row>
+      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 6">Red</el-button></el-row>
     </el-col>
     <el-dialog width="40%" title="snap" :visible.sync="innerVisible" ref="dialog2" @open="open()" append-to-body>
 
@@ -44,7 +44,7 @@
   </el-row>
   <div slot="footer" class="dialog-footer">
     <el-button @click="outerVisible = false">取 消</el-button>
-    <el-button type="primary" @click="outerVisible = false">提 交</el-button>
+    <el-button type="primary" @click="submit()">提 交</el-button>
   </div>
   </el-dialog></div>
 </template>
@@ -58,7 +58,6 @@
             video: {},
             // localstream: undefined,
             currentNumber: 0,
-            imageFlag: [{},{},{},{},{},{}],
             innerVisible: false,
             outerVisible: false
         }),
@@ -131,7 +130,18 @@
                 this.stop()
             },
 
-            submit(){}
+            submit(){
+                let img1 = this.$refs.canvas1.getContext('2d').getImageData(0, 0, 120, 120);
+                let img2 = this.$refs.canvas2.getContext('2d').getImageData(0, 0, 120, 120);
+                let img3 = this.$refs.canvas3.getContext('2d').getImageData(0, 0, 120, 120);
+                let img4 = this.$refs.canvas4.getContext('2d').getImageData(0, 0, 120, 120);
+                let img5 = this.$refs.canvas5.getContext('2d').getImageData(0, 0, 120, 120);
+                let img6 = this.$refs.canvas6.getContext('2d').getImageData(0, 0, 120, 120);
+                console.log(img1.data[0], img1.data[1], img1.data[2]);
+
+
+                this.outerVisible = false
+            }
         },
         mounted () {
             // this.canvas()
