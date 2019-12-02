@@ -75,6 +75,7 @@
                 ctx4.strokeStyle = "#f9640a";
                 ctx5.strokeStyle = "#f9fd0c";
                 ctx6.strokeStyle = "#f7f8f5";
+                console.log('canvas')
             },
 
             camera (face) {
@@ -137,14 +138,28 @@
                 let img4 = this.$refs.canvas4.getContext('2d').getImageData(0, 0, 120, 120);
                 let img5 = this.$refs.canvas5.getContext('2d').getImageData(0, 0, 120, 120);
                 let img6 = this.$refs.canvas6.getContext('2d').getImageData(0, 0, 120, 120);
+                //data: 1-d array of RGBA
+                let dr = []; let dg = []; let db = [];
+                let rr = []; let rg = []; let rb = [];
+                let br = []; let bg = []; let bb = [];
+                let ur = []; let ug = []; let ub = [];
+                let lr = []; let lg = []; let lb = [];
+                let fr = []; let fg = []; let fb = [];
                 console.log(img1.data, img1.data[0], img1.data[1], img1.data[2], img1.data[3], img1.data[4], img1.data[5]);
-
-
+                for (let i = 0; i < 57600; i+=4){
+                    dr.push(img1.data[i]); dg.push(img1.data[i+1]); db.push(img1.data[i+2]);
+                    rr.push(img2.data[i]); rg.push(img2.data[i+1]); rb.push(img2.data[i+2]);
+                    br.push(img3.data[i]); bg.push(img3.data[i+1]); bb.push(img3.data[i+2]);
+                    ur.push(img4.data[i]); ug.push(img4.data[i+1]); ub.push(img4.data[i+2]);
+                    lr.push(img5.data[i]); lg.push(img5.data[i+1]); lb.push(img5.data[i+2]);
+                    fr.push(img6.data[i]); fg.push(img6.data[i+1]); fb.push(img6.data[i+2]);
+                }
+                this.$axios.post();
                 this.outerVisible = false
             }
         },
         mounted () {
-            // this.canvas()
+            this.canvas()
             // this.$refs.dialog2.open();
             // this.camera('environment');
         }
