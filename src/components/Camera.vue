@@ -137,7 +137,7 @@
                 let img4 = this.$refs.canvas4.getContext('2d').getImageData(0, 0, 120, 120);
                 let img5 = this.$refs.canvas5.getContext('2d').getImageData(0, 0, 120, 120);
                 let img6 = this.$refs.canvas6.getContext('2d').getImageData(0, 0, 120, 120);
-                console.log(img1.data[0], img1.data[1], img1.data[2]);
+                console.log(img1.data, img1.data[0], img1.data[1], img1.data[2], img1.data[3], img1.data[4], img1.data[5]);
 
 
                 this.outerVisible = false
