@@ -1,27 +1,30 @@
 <template>
 <div class="hello" @mousedown="handleMouseDown">
   <h1>{{ title }}</h1>
-  <div class="button-group">
-    <div class="button" @click="rotate('r', 1)">R</div>
-    <div class="button" @click="rotate('r', -1)">R'</div>
-    <div class="button" @click="rotate('u', -1)">U</div>
-    <div class="button" @click="rotate('u', 1)">U'</div>
-    <div class="button" @click="rotate('b', 1)">B'</div>
-    <div class="button" @click="rotate('b', -1)">B</div>
-    <div class="button" @click="rotate('f', -1)">F'</div>
-    <div class="button" @click="rotate('f', 1)">F</div>
-    <div class="button" @click="rotate('d', 1)">D</div>
-    <div class="button" @click="rotate('d', -1)">D'</div>
-    <div class="button" @click="rotate('l', 1)">L'</div>
-    <div class="button" @click="rotate('l', -1)">L</div>
-    <div class="button" @click="randomRotate(25,true)">随机打乱</div>
-  </div>
-  <div class="opacity-set">
-    <label>透明度</label>
-    <input @mousemove.stop="()=>{}" type="range" v-model="opacity" min="0" max="100">
-  </div>
   <div class="cube" :style="'transform: rotateX('+rotateX+'deg) rotateY('+rotateY+'deg)'">
-    <Cube v-for="position in positions" :position="position" :ref="position[0]+'-'+position[1]+'-'+position[2]" :key="position[0]+'-'+position[1]+'-'+position[2]" :id="position[0]+'-'+position[1]+'-'+position[2]" :opacity="opacity/100"></Cube>
+    <Cube v-for="pos in positions" :position="pos" :ref="pos[0]+'-'+pos[1]+'-'+pos[2]" :key="pos[0]+'-'+pos[1]+'-'+pos[2]" :id="pos[0]+'-'+pos[1]+'-'+pos[2]" :opacity="opacity/100">
+    </Cube>
+  </div>
+  <div class="button-group">
+    <button name = "R" id = 1 @click="rotate('r', 1)">R</button>
+    <button name = "R'" id = 2 @click="rotate('r', -1)">R'</button>
+    <button name = "U" id = 3 @click="rotate('u', -1)">U</button>
+    <button name = "U'" id = 4 @click="rotate('u', 1)">U'</button>
+    <button name = "B'" id = 5 @click="rotate('b', 1)">B'</button>
+    <button name = "B" id = 6 @click="rotate('b', -1)">B</button>
+    <button name = "F'" id = 7 @click="rotate('f', -1)">F'</button>
+    <button name = "F" id = 8 @click="rotate('f', 1)">F</button>
+    <button name = "D" id = 9 @click="rotate('d', 1)">D</button>
+    <button name = "D'" id = 10 @click="rotate('d', -1)">D'</button>
+    <button name = "L'" id = 11 @click="rotate('l', 1)">L'</button>
+    <button name = "L" id = 12 @click="rotate('l', -1)">L</button>
+    <button name = "L" id = 18 @click="rotate('z', -1)">Z</button>
+  </div>
+  <div class="button-group">
+    <button name = "RR" id = 13 @click="randomRotate(20,true)">随机打乱</button>
+    <button name = "RE" id = 14 @click="reset()">重置</button>
+    <button name = "PL" id = 15 v-on:click="count += 1" @click="play()">播放</button>
+    <button name = "SP" id = 17 v-on:click="counter += 1" @click="singleplay()">单步</button>
   </div>
 </div>
 </template>
@@ -38,27 +41,15 @@ for (let x = 1; x < 4; x++) {
   }
 }
 
-function generateRandomRotateParams(last) {
+function generateRandomRotateParams() {
   const param = {
     direction: '',
     clockwise: 0
   };
-
-  const isReserve = (lhs, rhs) => {
-    return lhs.direction === rhs.direction && lhs.clockwise + rhs.clockwise === 0
-  }
-
-  const directions = ['r', 'u', 'b', 'f', 'd', 'l'];
-  param.direction = directions[Math.floor(Math.random() * 6)];
+  const directions = ['r', 'u', 'b', 'f', 'd', 'l', 'z'];
+  param.direction = directions[Math.floor(Math.random() * 7)];
   const clockwises = [-1, 1];
   param.clockwise = clockwises[Math.floor(Math.random() * 2)];
-
-  if (last !== undefined) {
-    if (isReserve(param, last)) {
-      return generateRandomRotateParams(last);
-    }
-  }
-
   return param;
 }
 
@@ -66,22 +57,50 @@ export default {
   name: 'CubeCore',
   data() {
     return {
-      title: 'Rubik\'s Cube',
-      rotateX: -35,
-      rotateY: -45,
+      params: [],
+      title: 'Rubik Cube',
+      rotateX: -45,
+      rotateY: 45,
       rotateing: false,
       looping: false,
       opacity: 100,
+      counter: 0,
+      count: 0,
+      index: 0,
       positions
     };
   },
   methods: {
+    generateparams() {
+      this.params = [];
+      for (let i = 0; i < 20; i++) {
+        this.params.push(generateRandomRotateParams());
+      }
+    },
+    reset() {
+      this.rotateing = false;
+      this.looping = false;
+      this.opacity = 100;
+      this.params = [];
+      this.count = 0;
+      this.index = 0;
+      for (let i = 0; i < 20; i++) {
+        this.params.push(generateRandomRotateParams());
+      }
+      for (let i = 0; i < this.params.length; i++) {
+        console.log(this.params[i].direction, this.params[i].clockwise)
+      }
+    },
     rotate(direction, clockwise, callback, isnotclick) {
       if (this.looping && !isnotclick) {
         return
       }
       if (this.rotateing) {
         return
+      }
+      if (direction === 'z') {
+        this.rotateX = (this.rotateX + 180) % 360;
+        this.rotateY = (this.rotateY + 90) % 360;
       }
       let coordinate = '';
       let position = 0;
@@ -110,6 +129,8 @@ export default {
           coordinate = 'x';
           position = 1;
           break
+        case 'z':
+          break;
         default:
           console.log('error direction')
       }
@@ -156,7 +177,7 @@ export default {
         if (callback) {
           setTimeout(() => {
             callback()
-          }, 120)
+          }, 100)
         }
       }, 500)
     },
@@ -200,21 +221,54 @@ export default {
       document.addEventListener('mouseup', handleMouseUp);
     },
 
-    randomRotate(loopNum, isClick, lastParam) {
-      if ((this.looping && isClick) || this.rotateing) {
-        return
-      }
+    randomRotate(loopNum) {
       if (loopNum <= 0) {
         this.looping = false;
         return;
       }
       this.looping = true;
-      const param = generateRandomRotateParams(lastParam);
-
+      const param = generateRandomRotateParams();
+      console.log(param.direction, param.clockwise);
       this.rotate(
         param.direction,
         param.clockwise,
         this.randomRotate.bind(this, loopNum - 1, false, param), true);
+    },
+    playparams(index) {
+      const loopNum = this.params.length;
+      if (index >= loopNum || index < 0) {
+        this.looping = false;
+        return;
+      }
+      if (this.count % 2 === 0) {
+        this.index = index;
+        return;
+      }
+      const param = this.params[index];
+      console.log(param.direction, param.clockwise, index);
+      this.rotate(param.direction, param.clockwise, this.playparams.bind(this, index + 1, this.params[index]), true)
+    },
+    play() {
+      // this.generateparams();
+      // 可以实现双击重新播放
+      if (this.index === this.params.length) {
+        this.count = 1;
+        this.index = 0;
+      }
+      this.playparams(this.index);
+    },
+    singleplayparams(index) {
+      const loopNum = this.params.length;
+      if (index >= loopNum || index < 0) {
+        this.looping = false;
+        return;
+      }
+      const param = this.params[index];
+      console.log(param.direction, param.clockwise);
+      this.rotate(param.direction, param.clockwise, false, true);
+    },
+    singleplay() {
+      this.singleplayparams(this.counter - 1);
     },
   },
   components: {
@@ -234,7 +288,7 @@ h1 {
   line-height: 30px;
 }
 
-.button {
+button {
   padding: 0 20px;
   line-height: 21px;
   font-size: 14px;
@@ -251,10 +305,5 @@ h1 {
   position: relative;
   margin: 100px auto;
   transform-style: preserve-3d;
-  perspective: 10000000;
-}
-
-.opacity-set {
-  font-size: 20px;
 }
 </style>
