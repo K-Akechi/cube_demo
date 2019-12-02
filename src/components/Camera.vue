@@ -10,7 +10,7 @@
   <!--    </el-dialog>-->
   <el-row :gutter="20">
     <el-col :span="4">
-      <el-row><canvas ref="canvas1" width="120" height="120" v-on:load="canvas()"></canvas></el-row>
+      <el-row><canvas ref="canvas1" width="120" height="120"></canvas></el-row>
       <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 1">Red</el-button></el-row>
     </el-col>
     <el-col :span="4">
@@ -64,18 +64,18 @@
         }),
         methods: {
             canvas(){
-                let cxt1 = this.$refs.canvas1.getContext('2d');
-                let cxt2 = this.$refs.canvas2.getContext('2d');
-                let cxt3 = this.$refs.canvas3.getContext('2d');
-                let cxt4 = this.$refs.canvas4.getContext('2d');
-                let cxt5 = this.$refs.canvas5.getContext('2d');
-                let cxt6 = this.$refs.canvas6.getContext('2d');
-                cxt1.strokeStyle = "#c50209";
-                cxt2.strokeStyle = "#0500c1";
-                cxt3.strokeStyle = "#138804";
-                cxt4.strokeStyle = "#f9640a";
-                cxt5.strokeStyle = "#f9fd0c";
-                cxt6.strokeStyle = "#f7f8f5";
+                let ctx1 = this.$refs.canvas1.getContext('2d');
+                let ctx2 = this.$refs.canvas2.getContext('2d');
+                let ctx3 = this.$refs.canvas3.getContext('2d');
+                let ctx4 = this.$refs.canvas4.getContext('2d');
+                let ctx5 = this.$refs.canvas5.getContext('2d');
+                let ctx6 = this.$refs.canvas6.getContext('2d');
+                ctx1.strokeStyle = "#c50209";
+                ctx2.strokeStyle = "#0500c1";
+                ctx3.strokeStyle = "#138804";
+                ctx4.strokeStyle = "#f9640a";
+                ctx5.strokeStyle = "#f9fd0c";
+                ctx6.strokeStyle = "#f7f8f5";
             },
 
             camera (face) {
@@ -105,29 +105,33 @@
             },
 
             draw(){
-                let cxt;
+                let ctx;
                 if (this.currentNumber === 1) {
-                    cxt = this.$refs.canvas1.getContext('2d')
+                    ctx = this.$refs.canvas1.getContext('2d')
                 }
                 else if (this.currentNumber === 2){
-                    cxt = this.$refs.canvas2.getContext('2d')
+                    ctx = this.$refs.canvas2.getContext('2d')
                 }
                 else if (this.currentNumber === 3){
-                    cxt = this.$refs.canvas3.getContext('2d')
+                    ctx = this.$refs.canvas3.getContext('2d')
                 }
                 else if (this.currentNumber === 4){
-                    cxt = this.$refs.canvas4.getContext('2d')
+                    ctx = this.$refs.canvas4.getContext('2d')
                 }
                 else if (this.currentNumber === 5){
-                    cxt = this.$refs.canvas5.getContext('2d')
+                    ctx = this.$refs.canvas5.getContext('2d')
                 }
                 else {
-                    cxt = this.$refs.canvas6.getContext('2d')
+                    ctx = this.$refs.canvas6.getContext('2d')
                 }
-                cxt.drawImage(this.$refs.video, 0, 0, 120, 120);
+                ctx.drawImage(this.$refs.video, 0, 0, 120, 120);
                 console.log(this.currentNumber);
-                this.innerVisible = false
-            }
+                console.log(this.$refs.video);
+                this.innerVisible = false;
+                this.stop()
+            },
+
+            submit(){}
         },
         mounted () {
             // this.canvas()
