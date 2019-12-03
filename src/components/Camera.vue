@@ -154,7 +154,13 @@
                     lr.push(img5.data[i]); lg.push(img5.data[i+1]); lb.push(img5.data[i+2]);
                     fr.push(img6.data[i]); fg.push(img6.data[i+1]); fb.push(img6.data[i+2]);
                 }
-                this.$axios.post();
+                this.$axios.post('', {
+
+                }).then(function (response) {
+                    console.log(response)
+                }).catch(function (error) {
+                    console.log(error)
+                });
                 this.outerVisible = false
             }
         },
