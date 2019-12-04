@@ -108,27 +108,27 @@ export default {
         case 'r':
           coordinate = 'y';
           position = 3;
-          break
+          break;
         case 'u':
           coordinate = 'z';
           position = 3;
-          break
+          break;
         case 'l':
           coordinate = 'y';
           position = 1;
-          break
+          break;
         case 'd':
           coordinate = 'z';
           position = 1;
-          break
+          break;
         case 'f':
           coordinate = 'x';
           position = 3;
-          break
+          break;
         case 'b':
           coordinate = 'x';
           position = 1;
-          break
+          break;
         case 'z':
           break;
         default:
@@ -303,7 +303,8 @@ button {
   width: 180px;
   height: 180px;
   position: relative;
-  margin: 100px auto;
+  margin: 80px auto;
   transform-style: preserve-3d;
+  transform-origin: center;
 }
 </style>

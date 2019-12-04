@@ -59,7 +59,9 @@
             // localstream: undefined,
             currentNumber: 0,
             innerVisible: false,
-            outerVisible: false
+            outerVisible: false,
+            response: null,
+            error: null
         }),
         methods: {
             canvas(){
@@ -154,9 +156,19 @@
                     lr.push(img5.data[i]); lg.push(img5.data[i+1]); lb.push(img5.data[i+2]);
                     fr.push(img6.data[i]); fg.push(img6.data[i+1]); fb.push(img6.data[i+2]);
                 }
-                this.$axios.post('', {
-
-                }).then(function (response) {
+                let json = {};
+                json['picture'] = {};
+                json['picture'].width = 120;
+                json['picture'].height = 120;
+                let D = {}; let R= {}; let B = {}; let U = {}; let L = {}; let F = {};
+                D['R'] = dr; D['G'] = dg; D['B'] = db; R['R'] = rr; R['G'] = rg; R['B'] = rb;
+                B['R'] = br; B['G'] = bg; B['B'] = bb; U['R'] = ur; U['G'] = ug; U['B'] = ub;
+                L['R'] = lr; L['G'] = lg; L['B'] = lb; F['R'] = fr; F['G'] = fg; F['B'] = fb;
+                json['picture'].D = D; json['picture'].R = R; json['picture'].D = B;
+                json['picture'].U = U; json['picture'].L = L; json['picture'].F = F;
+                json = JSON.stringify(json);
+                console.log(json);
+                this.axios.post('http://106.14.45.216:8888/recognize', json).then(function (response) {
                     console.log(response)
                 }).catch(function (error) {
                     console.log(error)
@@ -165,7 +177,7 @@
             }
         },
         mounted () {
-            this.canvas()
+            // this.canvas()
             // this.$refs.dialog2.open();
             // this.camera('environment');
         }
