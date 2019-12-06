@@ -3,8 +3,8 @@
     <el-container>
       <el-header>
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-          <el-menu-item index="1"><router-link to="/">处理中心</router-link></el-menu-item>
-          <el-menu-item index="2"><router-link to="/overall">处理中心</router-link></el-menu-item>
+          <el-menu-item index="1"><router-link to="/">Playground</router-link></el-menu-item>
+          <el-menu-item index="2"><router-link to="/solve">Solver</router-link></el-menu-item>
           <el-menu-item index="3"><router-link to="/">消息中心</router-link></el-menu-item>
           <el-menu-item index="4"><router-link to="/">订单管理</router-link></el-menu-item>
         </el-menu>
