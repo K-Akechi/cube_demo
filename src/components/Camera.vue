@@ -170,7 +170,8 @@
                 json = JSON.stringify(json);
                 console.log(json);
                 this.axios.post('http://106.14.45.216:8888/recognize', json).then(function (response) {
-                    console.log(response)
+                    console.log(response);
+                    this.response = JSON.parse(response)
                 }).catch(function (error) {
                     console.log(error)
                 });
