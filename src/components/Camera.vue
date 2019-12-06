@@ -165,7 +165,7 @@
                 D['R'] = dr; D['G'] = dg; D['B'] = db; R['R'] = rr; R['G'] = rg; R['B'] = rb;
                 B['R'] = br; B['G'] = bg; B['B'] = bb; U['R'] = ur; U['G'] = ug; U['B'] = ub;
                 L['R'] = lr; L['G'] = lg; L['B'] = lb; F['R'] = fr; F['G'] = fg; F['B'] = fb;
-                json['picture'].D = D; json['picture'].R = R; json['picture'].D = B;
+                json['picture'].D = D; json['picture'].R = R; json['picture'].B = B;
                 json['picture'].U = U; json['picture'].L = L; json['picture'].F = F;
                 json = JSON.stringify(json);
                 console.log(json);
