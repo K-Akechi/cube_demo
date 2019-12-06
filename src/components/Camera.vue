@@ -1,6 +1,6 @@
 <template>
   <div>
-  <el-button type="primary" @click="outerVisible = true">点击打开录入界面<i class="el-icon-upload el-icon--right"></i></el-button>
+  <el-button type="primary" @click="outerVisible = true">录入魔方<i class="el-icon-upload el-icon--right"></i></el-button>
   <el-dialog title="魔方录入" :visible.sync="outerVisible" ref="dialog1" width="80%">
   <!--    <el-dialog-->
   <!--      width="30%"-->

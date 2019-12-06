@@ -2,8 +2,10 @@
     <div>
       <el-row><CubeCore></CubeCore></el-row>
       <el-row :gutter="20">
-        <el-col :span=12><Camera></Camera></el-col>
-        <el-col :span=12><Solver></Solver></el-col>
+        <el-col :span=4><div class="grid-content"></div></el-col>
+        <el-col :span=4><div class="grid-content"></div></el-col>
+        <el-col :span=4><div class="grid-content"><Camera></Camera></div></el-col>
+        <el-col :span=4><div class="grid-content"><Solver></Solver></div></el-col>
       </el-row>
     </div>
 </template>
@@ -25,5 +27,8 @@
 </script>
 
 <style scoped>
-
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
 </style>
