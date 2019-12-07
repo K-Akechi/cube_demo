@@ -4,7 +4,7 @@
       <el-row :gutter="20">
         <el-col :span=4><div class="grid-content"></div></el-col>
         <el-col :span=4><div class="grid-content"></div></el-col>
-        <el-col :span=4><div class="grid-content"><Camera></Camera></div></el-col>
+        <el-col :span=4><div class="grid-content"><Camera @initcube="init"></Camera></div></el-col>
         <el-col :span=4><div class="grid-content"><Solver></Solver></div></el-col>
       </el-row>
     </div>
@@ -21,6 +21,11 @@
         data(){
             return{
                 content:""
+            }
+        },
+        methods: {
+            init() {
+
             }
         }
     }

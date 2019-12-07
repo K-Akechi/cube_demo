@@ -63,8 +63,9 @@
             currentNumber: 0,
             innerVisible: false,
             outerVisible: false,
-            response: null,
-            error: null
+            cube: [],
+            success: false,
+            trans: []
         }),
         methods: {
             canvas(){
@@ -172,17 +173,29 @@
                 json['picture'].U = U; json['picture'].L = L; json['picture'].F = F;
                 json = JSON.stringify(json);
                 console.log(json);
-                this.axios.post('/api/recognize', json).then(function (response) {
-                    console.log(response);
-                    this.response = JSON.parse(response.data);
-                    console.log(this.response)
-                }).catch(function (error) {
+                this.axios.post('/api/recognize', json).then((response) => {
+                    this.cube['D'] = response.data.cube.D;
+                    this.cube['R'] = response.data.cube.R;
+                    this.cube['B'] = response.data.cube.B;
+                    this.cube['U'] = response.data.cube.U;
+                    this.cube['L'] = response.data.cube.L;
+                    this.cube['F'] = response.data.cube.F;
+                    this.success = response.data.success;
+                    this.trans = response.data.trans;
+                    console.log(this.cube);
+                    console.log(this.success);
+                    console.log(this.trans);
+                    // console.log(this.response)
+                }).catch((error) => {
                     console.log(error)
                 });
-                if (this.response.success === 'False')
+                if (this.success === false)
                     alert('请重新录入');
-                else
+                else{
+                    this.$emit('initcube', this.cube, this.trans);
+
                     this.outerVisible = false;
+                }
             }
         },
         mounted () {
