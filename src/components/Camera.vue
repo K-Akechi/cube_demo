@@ -54,6 +54,9 @@
      * 摄像头控制 demo
      */
     export default {
+        props: {
+
+        },
         data: () => ({
             video: {},
             // localstream: undefined,
@@ -169,13 +172,17 @@
                 json['picture'].U = U; json['picture'].L = L; json['picture'].F = F;
                 json = JSON.stringify(json);
                 console.log(json);
-                this.axios.post('http://106.14.45.216:8888/recognize', json).then(function (response) {
+                this.axios.post('/api/recognize', json).then(function (response) {
                     console.log(response);
-                    this.response = JSON.parse(response)
+                    this.response = JSON.parse(response.data);
+                    console.log(this.response)
                 }).catch(function (error) {
                     console.log(error)
                 });
-                this.outerVisible = false
+                if (this.response.success === 'False')
+                    alert('请重新录入');
+                else
+                    this.outerVisible = false;
             }
         },
         mounted () {
