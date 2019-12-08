@@ -70,10 +70,66 @@ export default {
     };
   },
   methods: {
-    generateparams() {
+    generateparams(parms) {
       this.params = [];
-      for (let i = 0; i < 20; i++) {
-        this.params.push(generateRandomRotateParams());
+      for (let i = 0; i < parms.length; i++) {
+        let param = {
+          direction: '',
+          clockwise: 0
+        };
+        if (parms[i] === 'r') {
+          param.direction = 'r';
+          param.clockwise = 1;
+        }
+        else if (params[i] = 'r\'') {
+          param.direction = 'r';
+          param.clockwise = -1;
+        }
+        else if (params[i] = 'u') {
+          param.direction = 'u';
+          param.clockwise = -1;
+        }
+        else if (params[i] = 'u\'') {
+          param.direction = 'u';
+          param.clockwise = 1;
+        }
+        else if (params[i] = 'b\'') {
+          param.direction = 'b';
+          param.clockwise = 1;
+        }
+        else if (params[i] = 'b') {
+          param.direction = 'b';
+          param.clockwise = -1;
+        }
+        else if (params[i] = 'f') {
+          param.direction = 'f';
+          param.clockwise = 1;
+        }
+        else if (params[i] = 'f\'') {
+          param.direction = 'f';
+          param.clockwise = -1;
+        }
+        else if (params[i] = 'd\'') {
+          param.direction = 'd';
+          param.clockwise = -1;
+        }
+        else if (params[i] = 'd') {
+          param.direction = 'd';
+          param.clockwise = 1;
+        }
+        else if (params[i] = 'z') {
+          param.direction = 'z';
+          param.clockwise = -1;
+        }
+        else if (params[i] = 'l') {
+          param.direction = 'l';
+          param.clockwise = -1;
+        }
+        else if (params[i] = 'l\'') {
+          param.direction = 'l';
+          param.clockwise = 1;
+        }
+        this.params.push(param);
       }
     },
     reset() {
