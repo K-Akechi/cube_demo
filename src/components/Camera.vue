@@ -36,7 +36,7 @@
     <el-dialog width="40%" title="snap" :visible.sync="innerVisible" ref="dialog2" @open="open()" append-to-body>
 
       <div slot="footer" class="dialog-footer">
-        <video ref="video" width="120" height="120" autoplay></video>
+        <video ref="video" width="160" height="120" autoplay></video>
         <el-button @click="innerVisible = false">取 消</el-button>
         <el-button ref="snap" type="primary" @click="draw()">拍 摄</el-button>
       </div>
@@ -93,11 +93,7 @@
             },
             gum (face) {
                 const fa = face === 'user' ? { facingMode: 'user' } : { facingMode: { exact: 'environment' } };
-                return navigator.mediaDevices.getUserMedia({ audio: false, video: {
-                        facingMode: 'environment',
-                        width: 160,
-                        height: 120,
-                    } })
+                return navigator.mediaDevices.getUserMedia({ audio: false, video: fa})
                     .then(stream => {
                         this.$refs.video.srcObject = stream;
                         this.$refs.video.play();
