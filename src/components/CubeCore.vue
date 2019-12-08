@@ -205,22 +205,22 @@ export default {
           for (let i = 1; i <= 90; i++) {
             // setTimeout("this.rotateZ = (this.rotateZ - 1 + 360) % 360", 1)
             setTimeout(() => {
-              this.rotateZ = (this.rotateZ - 1 + 360) % 360;
-            }, 500);
+              this.rotateY = (this.rotateY - 1 + 360) % 360;
+            }, 100);
           }
           break;
         case 'x':
           for (let i = 1; i <= 90; i++) {
             setTimeout(() => {
               this.rotateX = (this.rotateX - 1 + 360) % 360;
-            }, 500);
+            }, 100);
           }
           break;
         case 'y':
           for (let i = 1; i <= 90; i++) {
             setTimeout(() => {
-              this.rotateY = (this.rotateY - 1 + 360) % 360;
-            }, 500);
+              this.rotateZ = (this.rotateZ + 1 + 360) % 360;
+            }, 100);
           }          break;
         default:
           console.log('error direction')
