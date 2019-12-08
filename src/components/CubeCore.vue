@@ -60,6 +60,7 @@ export default {
       title: 'Rubik Cube',
       rotateX: -45,
       rotateY: 45,
+      rotateZ: 0,
       rotateing: false,
       looping: false,
       opacity: 100,
@@ -147,16 +148,17 @@ export default {
       }
     },
     rotate(direction, clockwise, callback, isnotclick) {
+      debugger;
       if (this.looping && !isnotclick) {
         return
       }
       if (this.rotateing) {
         return
       }
-      if (direction === 'z') {
-        this.rotateX = (this.rotateX + 180) % 360;
-        this.rotateY = (this.rotateY + 90) % 360;
-      }
+      // if (direction === 'z') {
+      //   this.rotateX = (this.rotateX + 180) % 360;
+      //   this.rotateY = (this.rotateY + 90) % 360;
+      // }
       let coordinate = '';
       let position = 0;
       switch (direction) {
@@ -185,6 +187,13 @@ export default {
           position = 1;
           break;
         case 'z':
+          this.rotateY = (this.rotateY + clockwise * 90 + 360) % 360;
+          break;
+        case 'x':
+          this.rotateX = (this.rotateX + clockwise * 90 + 360) % 360;
+          break;
+        case 'y':
+          this.rotateZ = (this.rotateZ + clockwise * 90 + 360) % 360;
           break;
         default:
           console.log('error direction')
