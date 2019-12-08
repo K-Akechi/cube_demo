@@ -1,6 +1,6 @@
 <template>
 <div class="hello" @mousedown="handleMouseDown">
-  <div class="cube" :style="'transform: rotateX('+rotateX+'deg) rotateY('+rotateY+'deg)'">
+  <div class="cube" :style="'transform: rotateX('+rotateX+'deg) rotateY('+rotateY+'deg)' + 'rotateZ('+rotateZ+'deg)'">
     <Cube v-for="pos in positions" :position="pos" :ref="pos[0]+'-'+pos[1]+'-'+pos[2]" :key="pos[0]+'-'+pos[1]+'-'+pos[2]" :id="pos[0]+'-'+pos[1]+'-'+pos[2]" :opacity="opacity/100">
     </Cube>
   </div>
@@ -16,8 +16,10 @@
     <button name = "D" id = 9 @click="rotate('d', 1)">D</button>
     <button name = "D'" id = 10 @click="rotate('d', -1)">D'</button>
     <button name = "L'" id = 11 @click="rotate('l', 1)">L'</button>
-    <button name = "L" id = 12 @click="rotate('l', -1)">L</button>
-    <button name = "L" id = 18 @click="rotate('z', -1)">Z</button>
+    <button name = "L'" id = 12 @click="rotate('l', -1)">L</button>
+    <button name = "Z" id = 18 @click="rotate('z', -1)">Z</button>
+    <button name = "X" id = 19 @click="rotate('x', -1)">X</button>
+    <button name = "Y" id = 20 @click="rotate('y', -1)">Y</button>
   </div>
   <div class="button-group">
     <button name = "RR" id = 13 @click="randomRotate(20,true)">随机打乱</button>
@@ -71,62 +73,70 @@ export default {
     };
   },
   methods: {
-    generateparams(parms) {
+    generateparams(params) {
       this.params = [];
-      for (let i = 0; i < parms.length; i++) {
+      for (let i = 0; i < params.length; i++) {
         let param = {
           direction: '',
           clockwise: 0
         };
-        if (parms[i] === 'r') {
+        if (params[i] === 'r') {
           param.direction = 'r';
           param.clockwise = 1;
         }
-        else if (params[i] = 'r\'') {
+        else if (params[i] === 'r\'') {
           param.direction = 'r';
           param.clockwise = -1;
         }
-        else if (params[i] = 'u') {
+        else if (params[i] === 'u') {
           param.direction = 'u';
           param.clockwise = -1;
         }
-        else if (params[i] = 'u\'') {
+        else if (params[i] === 'u\'') {
           param.direction = 'u';
           param.clockwise = 1;
         }
-        else if (params[i] = 'b\'') {
+        else if (params[i] === 'b\'') {
           param.direction = 'b';
           param.clockwise = 1;
         }
-        else if (params[i] = 'b') {
+        else if (params[i] === 'b') {
           param.direction = 'b';
           param.clockwise = -1;
         }
-        else if (params[i] = 'f') {
+        else if (params[i] === 'f') {
           param.direction = 'f';
           param.clockwise = 1;
         }
-        else if (params[i] = 'f\'') {
+        else if (params[i] === 'f\'') {
           param.direction = 'f';
           param.clockwise = -1;
         }
-        else if (params[i] = 'd\'') {
+        else if (params[i] === 'd\'') {
           param.direction = 'd';
           param.clockwise = -1;
         }
-        else if (params[i] = 'd') {
+        else if (params[i] === 'd') {
           param.direction = 'd';
           param.clockwise = 1;
         }
-        else if (params[i] = 'z') {
+        else if (params[i] === 'z') {
           param.direction = 'z';
           param.clockwise = -1;
         }
-        else if (params[i] = 'l') {
+        else if (params[i] === 'x') {
+          param.direction = 'x';
+          param.clockwise = -1;
+        }
+        else if (params[i] === 'y') {
+          param.direction = 'y';
+          param.clockwise = -1;
+        }
+        else if (params[i] === 'l') {
           param.direction = 'l';
           param.clockwise = -1;
         }
-        else if (params[i] = 'l\'') {
+        else if (params[i] === 'l\'') {
           param.direction = 'l';
           param.clockwise = 1;
         }
@@ -140,25 +150,29 @@ export default {
       this.params = [];
       this.count = 0;
       this.index = 0;
-      for (let i = 0; i < 20; i++) {
-        this.params.push(generateRandomRotateParams());
+      // let params = [];
+      // const directions = ['r', 'u', 'b', 'f', 'd', 'l', 'z', 'r\'', 'u\'', 'b\'', 'f\'', 'd\'', 'l\''];
+      // for (let i = 0; i < 20; i++) {
+      //   let param = directions[Math.floor(Math.random() * 13)];
+      //   params.push(param);
+      // }
+      const params = ['d', 'd', 'f', 'f', 'z', 'd', 'f', 'f', 'z', 'f', 'f', 'f', 'z', 'f', 'd', 'r', 'f\'', 'r\'']
+      for (let i = 0; i < params.length; i++) {
+        console.log(params[i])
       }
+      console.log("--------------------------")
+      this.generateparams(params);
       for (let i = 0; i < this.params.length; i++) {
         console.log(this.params[i].direction, this.params[i].clockwise)
       }
     },
-    rotate(direction, clockwise, callback, isnotclick) {
-      debugger;
-      if (this.looping && !isnotclick) {
+    rotate(direction, clockwise, callback) {
+      if (this.looping) {
         return
       }
       if (this.rotateing) {
         return
       }
-      // if (direction === 'z') {
-      //   this.rotateX = (this.rotateX + 180) % 360;
-      //   this.rotateY = (this.rotateY + 90) % 360;
-      // }
       let coordinate = '';
       let position = 0;
       switch (direction) {
@@ -187,19 +201,32 @@ export default {
           position = 1;
           break;
         case 'z':
-          this.rotateY = (this.rotateY + clockwise * 90 + 360) % 360;
+          // this.rotateZ = (this.rotateZ - 90 + 360) % 360;
+          for (let i = 1; i <= 90; i++) {
+            // setTimeout("this.rotateZ = (this.rotateZ - 1 + 360) % 360", 1)
+            setTimeout(() => {
+              this.rotateZ = (this.rotateZ - 1 + 360) % 360;
+            }, 500);
+          }
           break;
         case 'x':
-          this.rotateX = (this.rotateX + clockwise * 90 + 360) % 360;
+          for (let i = 1; i <= 90; i++) {
+            setTimeout(() => {
+              this.rotateX = (this.rotateX - 1 + 360) % 360;
+            }, 500);
+          }
           break;
         case 'y':
-          this.rotateZ = (this.rotateZ + clockwise * 90 + 360) % 360;
-          break;
+          for (let i = 1; i <= 90; i++) {
+            setTimeout(() => {
+              this.rotateY = (this.rotateY - 1 + 360) % 360;
+            }, 500);
+          }          break;
         default:
           console.log('error direction')
       }
       this.rotateing = true;
-      const list = this.$children.filter(item => item[coordinate] == position);
+      const list = this.$children.filter(item => item[coordinate] === position);
       list.forEach((item) => {
         Object.assign(item.colorCache, item.color);
         item.$el.style.transition = 'all .5s ease-in-out';
@@ -244,7 +271,7 @@ export default {
           }, 100)
         }
       }, 500)
-    },
+},
     changeColor(c1, c2, d1, d2, d3) {
       c1.color = {
         [`${d1}1`]: c2.colorCache[`${d2}3`],
