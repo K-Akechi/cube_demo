@@ -130,7 +130,7 @@
                 else {
                     ctx = this.$refs.canvas6.getContext('2d')
                 }
-                ctx.drawImage(this.$refs.video, 0, 0, 120, 120, 0, 0, 120, 120);
+                ctx.drawImage(this.$refs.video, 0, 0, 480, 480, 0, 0, 120, 120);
                 console.log(this.currentNumber);
                 console.log(this.$refs.video);
                 this.innerVisible = false;
