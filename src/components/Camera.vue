@@ -36,7 +36,7 @@
     <el-dialog width="40%" title="snap" :visible.sync="innerVisible" ref="dialog2" @open="open()" append-to-body>
 
       <div slot="footer" class="dialog-footer">
-        <video ref="video" width="120" height="120" autoplay></video>
+        <video ref="video" width="160" height="120" autoplay></video>
         <el-button @click="innerVisible = false">取 消</el-button>
         <el-button ref="snap" type="primary" @click="draw()">拍 摄</el-button>
       </div>
@@ -54,14 +54,18 @@
      * 摄像头控制 demo
      */
     export default {
+        props: {
+
+        },
         data: () => ({
             video: {},
             // localstream: undefined,
             currentNumber: 0,
             innerVisible: false,
             outerVisible: false,
-            response: null,
-            error: null
+            cube: [],
+            success: false,
+            trans: []
         }),
         methods: {
             canvas(){
@@ -89,7 +93,7 @@
             },
             gum (face) {
                 const fa = face === 'user' ? { facingMode: 'user' } : { facingMode: { exact: 'environment' } };
-                return navigator.mediaDevices.getUserMedia({ audio: false, video: fa })
+                return navigator.mediaDevices.getUserMedia({ audio: false, video: fa})
                     .then(stream => {
                         this.$refs.video.srcObject = stream;
                         this.$refs.video.play();
@@ -126,7 +130,7 @@
                 else {
                     ctx = this.$refs.canvas6.getContext('2d')
                 }
-                ctx.drawImage(this.$refs.video, 0, 0, 120, 120);
+                ctx.drawImage(this.$refs.video, 0, 0, 480, 480, 0, 0, 120, 120);
                 console.log(this.currentNumber);
                 console.log(this.$refs.video);
                 this.innerVisible = false;
@@ -169,13 +173,29 @@
                 json['picture'].U = U; json['picture'].L = L; json['picture'].F = F;
                 json = JSON.stringify(json);
                 console.log(json);
-                this.axios.post('http://106.14.45.216:8888/recognize', json).then(function (response) {
-                    console.log(response);
-                    this.response = JSON.parse(response)
-                }).catch(function (error) {
+                this.axios.post('/api/recognize', json).then((response) => {
+                    this.cube['D'] = response.data.cube.D;
+                    this.cube['R'] = response.data.cube.R;
+                    this.cube['B'] = response.data.cube.B;
+                    this.cube['U'] = response.data.cube.U;
+                    this.cube['L'] = response.data.cube.L;
+                    this.cube['F'] = response.data.cube.F;
+                    this.success = response.data.success;
+                    this.trans = response.data.trans;
+                    console.log(this.cube);
+                    console.log(this.success);
+                    console.log(this.trans);
+                    // console.log(this.response)
+                }).catch((error) => {
                     console.log(error)
                 });
-                this.outerVisible = false
+                if (this.success === false)
+                    alert('请重新录入');
+                else{
+                    this.$emit('initcube', this.cube, this.trans);
+
+                    this.outerVisible = false;
+                }
             }
         },
         mounted () {

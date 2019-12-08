@@ -1,6 +1,6 @@
 <template>
 <div class="hello" @mousedown="handleMouseDown">
-  <div class="cube" :style="'transform: rotateX('+rotateX+'deg) rotateY('+rotateY+'deg)' + 'rotateZ('+rotateZ+'deg)'">
+  <div class="cube" :style="'transform: rotateX('+rotateX+'deg) rotateY('+rotateY+'deg)'">
     <Cube v-for="pos in positions" :position="pos" :ref="pos[0]+'-'+pos[1]+'-'+pos[2]" :key="pos[0]+'-'+pos[1]+'-'+pos[2]" :id="pos[0]+'-'+pos[1]+'-'+pos[2]" :opacity="opacity/100">
     </Cube>
   </div>
@@ -16,12 +16,11 @@
     <button name = "D" id = 9 @click="rotate('d', 1)">D</button>
     <button name = "D'" id = 10 @click="rotate('d', -1)">D'</button>
     <button name = "L'" id = 11 @click="rotate('l', 1)">L'</button>
-    <button name = "L'" id = 12 @click="rotate('l', -1)">L</button>
-    <button name = "Z" id = 18 @click="rotate('z', -1)">Z</button>
-    <button name = "X" id = 19 @click="rotate('x', -1)">X</button>
-    <button name = "Y" id = 20 @click="rotate('y', -1)">Y</button>
+    <button name = "L" id = 12 @click="rotate('l', -1)">L</button>
+    <button name = "L" id = 18 @click="rotate('z', -1)">Z</button>
   </div>
   <div class="button-group">
+    <button name = "RR" id = 13 @click="randomRotate(20,true)">随机打乱</button>
     <button name = "RE" id = 14 @click="reset()">重置</button>
     <button name = "PL" id = 15 v-on:click="count += 1" @click="play()">播放</button>
     <button name = "SP" id = 17 v-on:click="counter += 1" @click="singleplay()">单步</button>
@@ -61,7 +60,6 @@ export default {
       title: 'Rubik Cube',
       rotateX: -45,
       rotateY: 45,
-      rotateZ: 0,
       rotateing: false,
       looping: false,
       opacity: 100,
@@ -72,74 +70,10 @@ export default {
     };
   },
   methods: {
-    generateparams(params) {
+    generateparams() {
       this.params = [];
-      for (let i = 0; i < params.length; i++) {
-        let param = {
-          direction: '',
-          clockwise: 0
-        };
-        if (params[i] === 'r') {
-          param.direction = 'r';
-          param.clockwise = 1;
-        }
-        else if (params[i] === 'r\'') {
-          param.direction = 'r';
-          param.clockwise = -1;
-        }
-        else if (params[i] === 'u') {
-          param.direction = 'u';
-          param.clockwise = -1;
-        }
-        else if (params[i] === 'u\'') {
-          param.direction = 'u';
-          param.clockwise = 1;
-        }
-        else if (params[i] === 'b\'') {
-          param.direction = 'b';
-          param.clockwise = 1;
-        }
-        else if (params[i] === 'b') {
-          param.direction = 'b';
-          param.clockwise = -1;
-        }
-        else if (params[i] === 'f') {
-          param.direction = 'f';
-          param.clockwise = 1;
-        }
-        else if (params[i] === 'f\'') {
-          param.direction = 'f';
-          param.clockwise = -1;
-        }
-        else if (params[i] === 'd\'') {
-          param.direction = 'd';
-          param.clockwise = -1;
-        }
-        else if (params[i] === 'd') {
-          param.direction = 'd';
-          param.clockwise = 1;
-        }
-        else if (params[i] === 'z') {
-          param.direction = 'z';
-          param.clockwise = -1;
-        }
-        else if (params[i] === 'x') {
-          param.direction = 'x';
-          param.clockwise = -1;
-        }
-        else if (params[i] === 'y') {
-          param.direction = 'y';
-          param.clockwise = -1;
-        }
-        else if (params[i] === 'l') {
-          param.direction = 'l';
-          param.clockwise = -1;
-        }
-        else if (params[i] === 'l\'') {
-          param.direction = 'l';
-          param.clockwise = 1;
-        }
-        this.params.push(param);
+      for (let i = 0; i < 20; i++) {
+        this.params.push(generateRandomRotateParams());
       }
     },
     reset() {
@@ -149,29 +83,23 @@ export default {
       this.params = [];
       this.count = 0;
       this.index = 0;
-      // let params = [];
-      // const directions = ['r', 'u', 'b', 'f', 'd', 'l', 'z', 'r\'', 'u\'', 'b\'', 'f\'', 'd\'', 'l\''];
-      // for (let i = 0; i < 20; i++) {
-      //   let param = directions[Math.floor(Math.random() * 13)];
-      //   params.push(param);
-      // }
-      const params = ['d', 'd', 'f', 'f', 'z', 'd', 'r', 'r', 'z', 'b', 'b', 'z', 'l', 'd', 'f', 'l\'', 'f\'', 'z', 'd', 'd', 'd', 'l', 'd\'', 'l\'', 'z', 'z',
-      'd\'', 'd\'', 'b\'', 'd']
-      for (let i = 0; i < params.length; i++) {
-        console.log(params[i])
+      for (let i = 0; i < 20; i++) {
+        this.params.push(generateRandomRotateParams());
       }
-      console.log("--------------------------")
-      this.generateparams(params);
       for (let i = 0; i < this.params.length; i++) {
         console.log(this.params[i].direction, this.params[i].clockwise)
       }
     },
-    rotate(direction, clockwise, callback) {
-      if (this.looping) {
+    rotate(direction, clockwise, callback, isnotclick) {
+      if (this.looping && !isnotclick) {
         return
       }
       if (this.rotateing) {
         return
+      }
+      if (direction === 'z') {
+        this.rotateX = (this.rotateX + 180) % 360;
+        this.rotateY = (this.rotateY + 90) % 360;
       }
       let coordinate = '';
       let position = 0;
@@ -201,30 +129,12 @@ export default {
           position = 1;
           break;
         case 'z':
-          for (let i = 1; i <= 90; i++) {
-            setTimeout(() => {
-              this.rotateZ = (this.rotateZ + 1 + 360) % 360;
-            }, 500);
-          }
           break;
-        case 'x':
-          for (let i = 1; i <= 90; i++) {
-            setTimeout(() => {
-              this.rotateX = (this.rotateX - 1 + 360) % 360;
-            }, 500);
-          }
-          break;
-        case 'y':
-          for (let i = 1; i <= 90; i++) {
-            setTimeout(() => {
-              this.rotateY = (this.rotateY - 1 + 360) % 360;
-            }, 500);
-          }          break;
         default:
           console.log('error direction')
       }
       this.rotateing = true;
-      const list = this.$children.filter(item => item[coordinate] === position);
+      const list = this.$children.filter(item => item[coordinate] == position);
       list.forEach((item) => {
         Object.assign(item.colorCache, item.color);
         item.$el.style.transition = 'all .5s ease-in-out';
@@ -269,7 +179,7 @@ export default {
           }, 100)
         }
       }, 500)
-},
+    },
     changeColor(c1, c2, d1, d2, d3) {
       c1.color = {
         [`${d1}1`]: c2.colorCache[`${d2}3`],
