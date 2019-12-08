@@ -93,7 +93,11 @@
             },
             gum (face) {
                 const fa = face === 'user' ? { facingMode: 'user' } : { facingMode: { exact: 'environment' } };
-                return navigator.mediaDevices.getUserMedia({ audio: false, video: fa })
+                return navigator.mediaDevices.getUserMedia({ audio: false, video: {
+                        facingMode: 'environment',
+                        width: 160,
+                        height: 120,
+                    } })
                     .then(stream => {
                         this.$refs.video.srcObject = stream;
                         this.$refs.video.play();
