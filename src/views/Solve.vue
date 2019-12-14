@@ -60,8 +60,9 @@
                 console.log(flatten);
                 this.$refs.cube.generateparams(flatten);
                 this.$refs.cube.isfast = true;
+                this.$refs.cube.cubeInitial = cube;
                 console.log(this.$refs.cube.params);
-                this.content = "录入完成！";
+                this.content = "录入完成！点击播放初始化";
             }
         }
     }

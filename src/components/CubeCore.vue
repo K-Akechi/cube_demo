@@ -60,6 +60,10 @@ export default {
   name: 'CubeCore',
   data() {
     return {
+      cubeInitial: [],
+      success: null,
+      solution: [],
+      solution_with_mirror: [],
       params: [],
       param: {
         direction: '',
@@ -83,9 +87,33 @@ export default {
   },
   methods: {
     solve() {
+      this.params = [];
       this.isfast = false;
-      const params = ["B", "D", "B'", "L'", "F", "L", "z", "R", "R", "D", "B", "R'", "B'", "z", "L", "L", "B'", "L'", "L'", "z", "L", "D", "F", "L'", "F'", "z", "D'", "F'", "D'", "D'", "F", "D", "D", "L", "D'", "L'", "z", "D", "D", "D'", "R'", "D", "R", "z", "R", "D", "R'", "D'", "D'", "B'", "D", "B", "z", "B", "D", "B'", "D'", "D'", "L'", "D", "L", "z", "x", "x", "D", "z'", "D", "B", "D'", "B'", "D'", "L'", "D", "L", "z", "z", "z'", "D", "R", "D'", "R'", "D'", "B'", "D", "B", "z", "D", "D", "z'", "D", "R", "D'", "R'", "D'", "B'", "D", "B", "z", "z", "z", "D", "D", "D'", "F'", "D", "F", "D", "L", "D'", "L'", "z", "B", "D", "R", "D'", "R'", "B'", "D", "R", "D", "R'", "D", "R", "D", "D", "R'", "D", "D", "L'", "D'", "L", "D'", "L'", "D'", "D'", "L", "z", "z", "D", "D", "z'", "y'", "F", "F", "U", "F'", "F'", "U'", "R", "R", "F'", "F'", "D'", "F", "F", "D", "R'", "R'", "y", "z", "D'", "L", "D", "L'", "D", "L", "D", "D", "L'", "z", "F'", "D'", "F", "D'", "F'", "D'", "D'", "F", "z", "L'", "D'", "L", "D'", "L'", "D'", "D'", "L", "z'", "B", "D", "B'", "D", "B", "D", "D", "B'"];
-      this.generateparams(params);
+      let json = {};
+      json['cube'] = {};
+      json['cube'].D = this.cubeInitial['D']; json['cube'].R = this.cubeInitial['R']; json['cube'].B = this.cubeInitial['B'];
+      json['cube'].U = this.cubeInitial['U']; json['cube'].L = this.cubeInitial['L']; json['cube'].F = this.cubeInitial['F'];
+      json['magic_number'] = "qwertyuiop";
+      json = JSON.stringify(json);
+      console.log(json);
+      this.axios.post('/api/solve_lbl', json).then((response) => {
+            this.success = response.data.success;
+            this.solution = response.data.solution;
+            this.solution_with_mirror = response.data.solution_with_mirror;
+            // console.log(this.cube);
+          console.log(response);
+            // console.log(this.trans);
+            // console.log(this.response)
+      }).catch((error) => {
+            console.log(error)
+      });
+      // const params = ["B", "D", "B'", "L'", "F", "L", "z", "R", "R", "D", "B", "R'", "B'", "z", "L", "L", "B'", "L'", "L'", "z", "L", "D", "F", "L'", "F'", "z", "D'", "F'", "D'", "D'", "F", "D", "D", "L", "D'", "L'", "z", "D", "D", "D'", "R'", "D", "R", "z", "R", "D", "R'", "D'", "D'", "B'", "D", "B", "z", "B", "D", "B'", "D'", "D'", "L'", "D", "L", "z", "x", "x", "D", "z'", "D", "B", "D'", "B'", "D'", "L'", "D", "L", "z", "z", "z'", "D", "R", "D'", "R'", "D'", "B'", "D", "B", "z", "D", "D", "z'", "D", "R", "D'", "R'", "D'", "B'", "D", "B", "z", "z", "z", "D", "D", "D'", "F'", "D", "F", "D", "L", "D'", "L'", "z", "B", "D", "R", "D'", "R'", "B'", "D", "R", "D", "R'", "D", "R", "D", "D", "R'", "D", "D", "L'", "D'", "L", "D'", "L'", "D'", "D'", "L", "z", "z", "D", "D", "z'", "y'", "F", "F", "U", "F'", "F'", "U'", "R", "R", "F'", "F'", "D'", "F", "F", "D", "R'", "R'", "y", "z", "D'", "L", "D", "L'", "D", "L", "D", "D", "L'", "z", "F'", "D'", "F", "D'", "F'", "D'", "D'", "F", "z", "L'", "D'", "L", "D'", "L'", "D'", "D'", "L", "z'", "B", "D", "B'", "D", "B", "D", "D", "B'"];
+        console.log(this.success);
+        console.log(this.solution_with_mirror);
+      if (this.success === false)
+          this.$message.warning('solve error');
+
+      this.generateparams(this.solution_with_mirror);
       console.log("-----------------------------------------------------------------------");
       for (let i = 0; i < this.params.length && i < 10; i++) {
         console.log(this.params[i].direction, this.params[i].clockwise, i);
@@ -486,7 +514,7 @@ export default {
         return;
       }
       const param = this.params[index];
-      console.log(param.direction, param.clockwise);
+      console.log(param.direction, param.clockwise, index);
       this.rotate(param.direction, param.clockwise, this.singleplayparams.bind(this), true);
     },
     singleplay() {
@@ -500,7 +528,7 @@ export default {
       param.direction = this.params[this.counter - 1].direction;
       param.clockwise = this.params[this.counter - 1].clockwise * -1;
       // console.log(this.params[this.counter - 1].direction, this.params[this.counter - 1].clockwise);
-      console.log(param.direction, param.clockwise);
+      console.log(param.direction, param.clockwise, this.counter);
       this.rotate(param.direction, param.clockwise, this.singleplayparams.bind(this), true);
       this.counter -= 1;
     },
