@@ -62,7 +62,7 @@ export default {
     this.z = this.position[2];
     if (this.position[1] == 1) {
       // this.color.y1 = '#0500c1'
-        this.color.y1 = '#c50209'
+        this.color.y1 = '#138804'
     } else if (this.position[1] == 3) {
       // this.color.y3 = '#138804'
         this.color.y3 = '#0500c1'
@@ -77,7 +77,7 @@ export default {
     if (this.position[0] == 1) {
       this.color.x1 = '#f9640a'
     } else if (this.position[0] == 3) {
-      this.color.x3 =  '#138804'
+      this.color.x3 =  '#c50209'
     }
   },
   computed: {
