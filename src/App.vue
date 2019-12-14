@@ -1,18 +1,19 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header>
-        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-          <el-menu-item index="1"><router-link to="/">Playground</router-link></el-menu-item>
-          <el-menu-item index="2"><router-link to="/solve">Solver</router-link></el-menu-item>
-          <el-menu-item index="3"><router-link to="/">消息中心</router-link></el-menu-item>
-          <el-menu-item index="4"><router-link to="/">订单管理</router-link></el-menu-item>
-        </el-menu>
+      <el-header height="100px">
+      <h1><img src="./assets/logo2.png" alt="">Easy Cube by Sword Y.</h1>
       </el-header>
       <el-main>
+        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" router="routerStatus">
+          <el-menu-item index="1" route="/">Playground</el-menu-item>
+          <el-menu-item index="2" route="/solve">Solver</el-menu-item>
+          <el-menu-item index="3" route="/tutorial">Tutorial</el-menu-item>
+          <el-menu-item index="4" route="/quiz">Quiz</el-menu-item>
+        </el-menu>
         <router-view/>
       </el-main>
-      <el-footer height="50px"></el-footer>
+
     </el-container>
 
   </div>
@@ -25,6 +26,7 @@ export default {
     data() {
         return {
             activeIndex: '1',
+            routerStatus: true,
         };
     },
     methods: {
@@ -37,8 +39,10 @@ export default {
 </script>
 
 <style>
-  .el-header, .el-footer {
-    background-color: #B3C0D1;
+  .el-header{
+    margin-left: 15%;
+    margin-right: 15%;
+    background-color: #FFFFFF;
     color: #333;
     text-align: center;
     line-height: 60px;
@@ -52,7 +56,9 @@ export default {
   }
 
   .el-main {
-    background-color: #E9EEF3;
+    margin-left: 15%;
+    margin-right: 15%;
+    background-color: #FFFFFF;
     color: #333;
     text-align: center;
     line-height: 160px;

@@ -251,6 +251,7 @@
             }
         },
         mounted () {
+            this.submit()
             // this.canvas()
             // this.$refs.dialog2.open();
             // this.camera('environment');

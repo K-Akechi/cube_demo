@@ -1,7 +1,16 @@
 <template>
     <div>
-      <el-row><h1>{{content}}</h1></el-row>
-      <el-row><CubeCore ref="cube"></CubeCore></el-row>
+      <el-row>
+        <CubeCore ref="cube"></CubeCore>
+        <div class="button-group">
+          <button name = "RE" id = 14 @click="reset()">重置</button>
+          <button name = "RE" id = 23 @click="back()">回退</button>
+          <button name = "PL" id = 15 @click="play()">播放</button>
+          <button name = "SP" id = 17 @click="singleplay()">单步加</button>
+          <button name = "PR" id = 22 @click="pre()">单步减</button>
+          <button name = "SL" id = 21 @click="solve()">求解</button>
+        </div>
+      </el-row>
       <el-row :gutter="20">
         <el-col :span=9><div class="grid-content"></div></el-col>
         <el-col :span=6><div class="grid-content"><Camera @initcube="init"></Camera></div></el-col>
@@ -62,8 +71,31 @@
                 this.$refs.cube.isfast = true;
                 this.$refs.cube.cubeInitial = cube;
                 console.log(this.$refs.cube.params);
-                this.content = "录入完成！点击播放初始化";
+                this.$message.info("录入完成！点击播放初始化");
+            },
+            reset(){
+                this.$refs.cube.reset()
+            },
+            back(){
+                this.$refs.cube.back();
+            },
+            play(){
+                this.$refs.cube.count += 1;
+                this.$refs.cube.play();
+            },
+            singleplay(){
+                this.$refs.cube.counter += 1;
+                this.$refs.cube.singleplay();
+            },
+            pre(){
+                this.$refs.cube.pre();
+            },
+            solve(){
+                this.$refs.cube.solve();
             }
+        },
+        mounted() {
+            this.init()
         }
     }
 </script>
