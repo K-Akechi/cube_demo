@@ -233,9 +233,9 @@
                     this.cube['F'] = response.data.cube.F;
                     this.success = response.data.success;
                     this.trans = response.data.trans;
-                    console.log(this.cube);
+                    // console.log(this.cube);
                     console.log(this.success);
-                    console.log(this.trans);
+                    // console.log(this.trans);
                     // console.log(this.response)
                 }).catch((error) => {
                     console.log(error)
