@@ -23,8 +23,10 @@
   </div>
   <div class="button-group">
     <button name = "RE" id = 14 @click="reset()">重置</button>
+    <button name = "RE" id = 23 @click="back()">回退</button>
     <button name = "PL" id = 15 v-on:click="count += 1" @click="play()">播放</button>
-    <button name = "SP" id = 17 v-on:click="counter += 1" @click="singleplay()">单步</button>
+    <button name = "SP" id = 17 v-on:click="counter += 1" @click="singleplay()">单步加</button>
+    <button name = "PR" id = 22 v-on:click="counter -= 0" @click="pre()">单步减</button>
     <button name = "SL" id = 21 @click="solve()">求解</button>
   </div>
 </div>
@@ -42,23 +44,27 @@ for (let x = 1; x < 4; x++) {
   }
 }
 
-// function generateRandomRotateParams() {
-//   const param = {
-//     direction: '',
-//     clockwise: 0
-//   };
-//   const directions = ['r', 'u', 'b', 'f', 'd', 'l', 'z'];
-//   param.direction = directions[Math.floor(Math.random() * 7)];
-//   const clockwises = [-1, 1];
-//   param.clockwise = clockwises[Math.floor(Math.random() * 2)];
-//   return param;
-// }
+function generateRandomRotateParams() {
+  const param = {
+    direction: '',
+    clockwise: 0
+  };
+  const directions = ['r', 'u', 'b', 'f', 'd', 'l', 'z'];
+  param.direction = directions[Math.floor(Math.random() * 7)];
+  const clockwises = [-1, 1];
+  param.clockwise = clockwises[Math.floor(Math.random() * 2)];
+  return param;
+}
 
 export default {
   name: 'CubeCore',
   data() {
     return {
       params: [],
+      param: {
+        direction: '',
+        clockwise: 0
+      },
       title: 'Rubik Cube',
       rotateX: -45,
       rotateY: 45,
@@ -80,7 +86,8 @@ export default {
       this.isfast = false;
       const params = ["B", "D", "B'", "L'", "F", "L", "z", "R", "R", "D", "B", "R'", "B'", "z", "L", "L", "B'", "L'", "L'", "z", "L", "D", "F", "L'", "F'", "z", "D'", "F'", "D'", "D'", "F", "D", "D", "L", "D'", "L'", "z", "D", "D", "D'", "R'", "D", "R", "z", "R", "D", "R'", "D'", "D'", "B'", "D", "B", "z", "B", "D", "B'", "D'", "D'", "L'", "D", "L", "z", "x", "x", "D", "z'", "D", "B", "D'", "B'", "D'", "L'", "D", "L", "z", "z", "z'", "D", "R", "D'", "R'", "D'", "B'", "D", "B", "z", "D", "D", "z'", "D", "R", "D'", "R'", "D'", "B'", "D", "B", "z", "z", "z", "D", "D", "D'", "F'", "D", "F", "D", "L", "D'", "L'", "z", "B", "D", "R", "D'", "R'", "B'", "D", "R", "D", "R'", "D", "R", "D", "D", "R'", "D", "D", "L'", "D'", "L", "D'", "L'", "D'", "D'", "L", "z", "z", "D", "D", "z'", "y'", "F", "F", "U", "F'", "F'", "U'", "R", "R", "F'", "F'", "D'", "F", "F", "D", "R'", "R'", "y", "z", "D'", "L", "D", "L'", "D", "L", "D", "D", "L'", "z", "F'", "D'", "F", "D'", "F'", "D'", "D'", "F", "z", "L'", "D'", "L", "D'", "L'", "D'", "D'", "L", "z'", "B", "D", "B'", "D", "B", "D", "D", "B'"];
       this.generateparams(params);
-      for (let i = 0; i < this.params.length; i++) {
+      console.log("-----------------------------------------------------------------------");
+      for (let i = 0; i < this.params.length && i < 10; i++) {
         console.log(this.params[i].direction, this.params[i].clockwise, i);
       }
     },
@@ -175,12 +182,40 @@ export default {
       //   let param = directions[Math.floor(Math.random() * 13)];
       //   params.push(param);
       // }
-      const params = ["U'", "B'", "U'", "L", "F'", "L", "R", "R", "B'", "L'", "R", "D", "B'"]
-      // for (let i = 0; i < params.length; i++) {
-      //   console.log(params[i])
+      // const params = ["U'", "B'", "U'", "L", "F'", "L", "R", "R", "B'", "L'", "R", "D", "B'"]
+      let params = [];
+      let state = [];
+      // let url = 'http://106.14.45.216:8888/';
+      // var xhr = new XMLHttpRequest();
+      // xhr.open('POST',url + 'api/random_generate');
+      // xhr.send({
+      //   "magic_number": "qwertyuiop"
+      // });
+      // if(xhr.readyState === 4){
+      //   if(xhr.status === 200){
+      //     console.log(xhr.responseText);
+      //     params = xhr.responseText["trans"];
+      //     state = xhr.responseText["cube"];
+      //   }else{
+      //     alert('失败！')
+      //   }
       // }
-      // console.log("--------------------------")
+      // let json = {};
+      // json['magic_number'] = "qwertyuiop";
+      // json = JSON.stringify(json);
+      // console.log(json);
+      // this.axios.post('http://106.14.45.216:8888/api/random_generate', json).then((response) => {
+      //   params = response.data.trans;
+      //   state = response.data.cube;
+      //   // console.log(this.response)
+      // }).catch((error) => {
+      //   console.log(error)
+      // });
+
       this.generateparams(params);
+      this.count = 1;
+      this.play();
+      // this.count = 0;
       // for (let i = 0; i < this.params.length; i++) {
       //   console.log(this.params[i].direction, this.params[i].clockwise)
       // }
@@ -190,6 +225,33 @@ export default {
       //     Object.assign(item.colorCache, item.color);
       //     console.log(item.colorCache === item.color);
       // })
+    },
+    back() {
+      let temp = [];
+      let param = {
+        direction: '',
+        clockwise: 0
+      };
+      const length = this.params.length;
+      for (let i = length; i > 0; i--) {
+        // param.direction = this.params[i - 1].direction;
+        // param.clockwise = this.params[i - 1].clockwise * -1;
+        // console.log(param)
+        temp.push(this.params[i - 1]);
+        // console.log(this.params[length - i].direction,this.params[length - i].clockwise)
+      }
+      for (let i = 0; i < temp.length; i++) {
+        temp[i].clockwise *= -1;
+      }
+      for (let i = 0; i < temp.length; i++) {
+        console.log(temp[i]);
+      }
+      this.params = temp;
+      // for (let i = 0; i < this.params.length; i++) {
+      //   console.log(this.params[i].direction, this.params[i].clockwise);
+      // }
+      this.count = 1;
+      this.play();
     },
     rotate(direction, clockwise, callback) {
       if (this.looping) {
@@ -397,6 +459,7 @@ export default {
       const loopNum = this.params.length;
       if (index >= loopNum || index < 0) {
         this.looping = false;
+        this.count = 0;
         return;
       }
       if (this.count % 2 === 0) {
@@ -409,11 +472,6 @@ export default {
     },
     play() {
       // this.generateparams();
-      // 可以实现双击重新播放
-      if (this.index === this.params.length) {
-        this.count = 1;
-        this.index = 0;
-      }
       this.playparams(this.index);
     },
     singleplayparams(index) {
@@ -428,6 +486,18 @@ export default {
     },
     singleplay() {
       this.singleplayparams(this.counter - 1);
+    },
+    pre() {
+      let param = {
+          direction: '',
+          clockwise: 0
+        };
+      param.direction = this.params[this.counter - 1].direction;
+      param.clockwise = this.params[this.counter - 1].clockwise * -1;
+      // console.log(this.params[this.counter - 1].direction, this.params[this.counter - 1].clockwise);
+      console.log(param.direction, param.clockwise);
+      this.rotate(param.direction, param.clockwise, this.singleplayparams.bind(this), true);
+      this.counter -= 1;
     },
   },
   components: {
