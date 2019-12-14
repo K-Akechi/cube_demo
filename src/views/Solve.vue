@@ -1,6 +1,7 @@
 <template>
     <div>
-      <el-row><CubeCore></CubeCore></el-row>
+      <el-row><h1>{{content}}</h1></el-row>
+      <el-row><CubeCore ref="cube"></CubeCore></el-row>
       <el-row :gutter="20">
         <el-col :span=9><div class="grid-content"></div></el-col>
         <el-col :span=6><div class="grid-content"><Camera @initcube="init"></Camera></div></el-col>
@@ -19,13 +20,13 @@
         components: {Camera, CubeCore, Solver},
         data(){
             return{
-                content:""
+                content:"提示信息"
             }
         },
         methods: {
             init(cube, trans) {
-                console.log(cube);
-                console.log(trans);
+                // console.log(cube);
+                console.log(trans[0]);
                 let flatten = [];
                 for (let i=0; i<trans.length; i++){
                     if (trans[i] === "U2"){
@@ -57,6 +58,8 @@
                 }
                 console.log(cube);
                 console.log(flatten);
+                this.$refs.cube.generateparams(flatten);
+                console.log(this.$refs.cube.params);
             }
         }
     }

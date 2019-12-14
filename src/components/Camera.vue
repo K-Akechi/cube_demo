@@ -1,6 +1,6 @@
 <template>
   <div>
-  <el-button type="primary" @click="outerVisible = true">录入魔方<i class="el-icon-upload el-icon--right"></i></el-button>
+  <el-button type="primary" @click="outerVisible = true, submit">录入魔方<i class="el-icon-upload el-icon--right"></i></el-button>
   <el-dialog title="魔方录入" :visible.sync="outerVisible" ref="dialog1" width="80%">
   <!--    <el-dialog-->
   <!--      width="30%"-->
@@ -240,9 +240,9 @@
                 }).catch((error) => {
                     console.log(error)
                 });
-                if (this.success === false)
+                if (this.success === false){
                     this.$message.warning('请重新录入');
-                    // alert('请重新录入');
+                }
                 else{
                     this.$emit('initcube', this.cube, this.trans);
 
