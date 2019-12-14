@@ -262,6 +262,8 @@ export default {
       }
       let coordinate = '';
       let position = 0;
+
+      let T = 15;
       switch (direction) {
         case 'r':
           coordinate = 'y';
@@ -302,13 +304,14 @@ export default {
         //   this.state = state_temp_z;
         //   console.log(this.state)
           if (this.isfast) {
-            this.rotateZ = (this.rotateZ + 90) % 360;
+            this.rotateY = (this.rotateY + 90 * (-clockwise) + 360) % 360;
           }
           else {
-            for (let i = 1; i <= 90; i++) {
-              setTimeout(() => {
-                this.rotateZ = (this.rotateZ + 1 + 360) % 360;
-              }, 500);
+            var r = this.rotateY;
+            for(var i = 1; i <= T; i++) {
+                setTimeout(() => {
+                    this.rotateY = (r + i * (90 / T) * (-clockwise) + 360) % 360;
+                }, 500);
             }
           }
           break;
@@ -325,24 +328,26 @@ export default {
           //   state_temp[i][2][2] = this.state[i][1][2];
           // }
           if (this.isfast) {
-            this.rotateX = (this.rotateX - 90) % 360;
+              this.rotateX = (this.rotateX + 90 * (-clockwise) + 360) % 360;
           }
           else {
-            for (let i = 1; i <= 90; i++) {
-              setTimeout(() => {
-                this.rotateX = (this.rotateX - 1 + 360) % 360;
-              }, 500);
-            }
+              var r = this.rotateX;
+              for(var i = 1; i <= T; i++) {
+                  setTimeout(() => {
+                      this.rotateX = (r + i * (90 / T) * (-clockwise) + 360) % 360;
+                  }, 500);
+              }
           }
           break;
           case 'y':
             if (this.isfast) {
-              this.rotateY = (this.rotateY + 90) % 360;
+                this.rotateZ = (this.rotateZ + 90 * (-clockwise) + 360) % 360;
             }
             else {
-              for (let i = 1; i <= 90; i++) {
+                var r = this.rotateZ;
+                for (let i = 1; i <= 90; i++) {
                 setTimeout(() => {
-                  this.rotateY = (this.rotateY + 1 + 360) % 360;
+                    this.rotateZ = (r + i * (90 / T) * (-clockwise) + 360) % 360;
                 }, 500);
               }
             }
