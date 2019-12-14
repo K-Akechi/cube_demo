@@ -86,7 +86,7 @@ export default {
     };
   },
   methods: {
-    solve() {
+    async solve() {
       this.params = [];
       this.isfast = false;
       let json = {};
@@ -96,7 +96,7 @@ export default {
       json['magic_number'] = "qwertyuiop";
       json = JSON.stringify(json);
       console.log(json);
-      this.axios.post('/api/solve_lbl', json).then((response) => {
+      await this.axios.post('/api/solve_lbl', json).then((response) => {
             this.success = response.data.success;
             this.solution = response.data.solution;
             this.solution_with_mirror = response.data.solution_with_mirror;

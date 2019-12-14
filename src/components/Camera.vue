@@ -188,7 +188,7 @@
                 this.stop()
             },
 
-            submit(){
+            async submit() {
                 let img1 = this.$refs.canvas1.getContext('2d').getImageData(0, 0, 120, 120);
                 let img2 = this.$refs.canvas2.getContext('2d').getImageData(0, 0, 120, 120);
                 let img3 = this.$refs.canvas3.getContext('2d').getImageData(0, 0, 120, 120);
@@ -196,35 +196,83 @@
                 let img5 = this.$refs.canvas5.getContext('2d').getImageData(0, 0, 120, 120);
                 let img6 = this.$refs.canvas6.getContext('2d').getImageData(0, 0, 120, 120);
                 //data: 1-d array of RGBA
-                let dr = []; let dg = []; let db = [];
-                let rr = []; let rg = []; let rb = [];
-                let br = []; let bg = []; let bb = [];
-                let ur = []; let ug = []; let ub = [];
-                let lr = []; let lg = []; let lb = [];
-                let fr = []; let fg = []; let fb = [];
+                let dr = [];
+                let dg = [];
+                let db = [];
+                let rr = [];
+                let rg = [];
+                let rb = [];
+                let br = [];
+                let bg = [];
+                let bb = [];
+                let ur = [];
+                let ug = [];
+                let ub = [];
+                let lr = [];
+                let lg = [];
+                let lb = [];
+                let fr = [];
+                let fg = [];
+                let fb = [];
                 console.log(img1.data, img1.data[0], img1.data[1], img1.data[2], img1.data[3], img1.data[4], img1.data[5]);
-                for (let i = 0; i < 57600; i+=4){
-                    dr.push(img1.data[i]); dg.push(img1.data[i+1]); db.push(img1.data[i+2]);
-                    rr.push(img2.data[i]); rg.push(img2.data[i+1]); rb.push(img2.data[i+2]);
-                    br.push(img3.data[i]); bg.push(img3.data[i+1]); bb.push(img3.data[i+2]);
-                    ur.push(img4.data[i]); ug.push(img4.data[i+1]); ub.push(img4.data[i+2]);
-                    lr.push(img5.data[i]); lg.push(img5.data[i+1]); lb.push(img5.data[i+2]);
-                    fr.push(img6.data[i]); fg.push(img6.data[i+1]); fb.push(img6.data[i+2]);
+                for (let i = 0; i < 57600; i += 4) {
+                    dr.push(img1.data[i]);
+                    dg.push(img1.data[i + 1]);
+                    db.push(img1.data[i + 2]);
+                    rr.push(img2.data[i]);
+                    rg.push(img2.data[i + 1]);
+                    rb.push(img2.data[i + 2]);
+                    br.push(img3.data[i]);
+                    bg.push(img3.data[i + 1]);
+                    bb.push(img3.data[i + 2]);
+                    ur.push(img4.data[i]);
+                    ug.push(img4.data[i + 1]);
+                    ub.push(img4.data[i + 2]);
+                    lr.push(img5.data[i]);
+                    lg.push(img5.data[i + 1]);
+                    lb.push(img5.data[i + 2]);
+                    fr.push(img6.data[i]);
+                    fg.push(img6.data[i + 1]);
+                    fb.push(img6.data[i + 2]);
                 }
                 let json = {};
                 json['magic_number'] = "qwertyuiop";
                 json['picture'] = {};
                 json['picture'].width = 120;
                 json['picture'].height = 120;
-                let D = {}; let R= {}; let B = {}; let U = {}; let L = {}; let F = {};
-                D['R'] = dr; D['G'] = dg; D['B'] = db; R['R'] = rr; R['G'] = rg; R['B'] = rb;
-                B['R'] = br; B['G'] = bg; B['B'] = bb; U['R'] = ur; U['G'] = ug; U['B'] = ub;
-                L['R'] = lr; L['G'] = lg; L['B'] = lb; F['R'] = fr; F['G'] = fg; F['B'] = fb;
-                json['picture'].D = D; json['picture'].R = R; json['picture'].B = B;
-                json['picture'].U = U; json['picture'].L = L; json['picture'].F = F;
+                let D = {};
+                let R = {};
+                let B = {};
+                let U = {};
+                let L = {};
+                let F = {};
+                D['R'] = dr;
+                D['G'] = dg;
+                D['B'] = db;
+                R['R'] = rr;
+                R['G'] = rg;
+                R['B'] = rb;
+                B['R'] = br;
+                B['G'] = bg;
+                B['B'] = bb;
+                U['R'] = ur;
+                U['G'] = ug;
+                U['B'] = ub;
+                L['R'] = lr;
+                L['G'] = lg;
+                L['B'] = lb;
+                F['R'] = fr;
+                F['G'] = fg;
+                F['B'] = fb;
+                json['picture'].D = D;
+                json['picture'].R = R;
+                json['picture'].B = B;
+                json['picture'].U = U;
+                json['picture'].L = L;
+                json['picture'].F = F;
                 json = JSON.stringify(json);
                 console.log(json);
-                this.axios.post('/api/recognize', json).then((response) => {
+                await this.axios.post('/api/recognize', json).then((response) => {
                     this.cube['D'] = response.data.cube.D;
                     this.cube['R'] = response.data.cube.R;
                     this.cube['B'] = response.data.cube.B;
@@ -240,18 +288,18 @@
                 }).catch((error) => {
                     console.log(error)
                 });
-                if (this.success === false){
+                if (this.success === false) {
                     this.$message.warning('请重新录入');
-                }
-                else{
+                } else {
                     this.$emit('initcube', this.cube, this.trans);
 
                     this.outerVisible = false;
-                }
+              }
+
             }
         },
         mounted () {
-            this.submit()
+            // this.submit()
             // this.canvas()
             // this.$refs.dialog2.open();
             // this.camera('environment');
