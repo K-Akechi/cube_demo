@@ -2,10 +2,9 @@
     <div>
       <el-row><CubeCore></CubeCore></el-row>
       <el-row :gutter="20">
-        <el-col :span=4><div class="grid-content"></div></el-col>
-        <el-col :span=4><div class="grid-content"></div></el-col>
-        <el-col :span=4><div class="grid-content"><Camera @initcube="init"></Camera></div></el-col>
-        <el-col :span=4><div class="grid-content"><Solver></Solver></div></el-col>
+        <el-col :span=9><div class="grid-content"></div></el-col>
+        <el-col :span=6><div class="grid-content"><Camera @initcube="init"></Camera></div></el-col>
+<!--        <el-col :span=4><div class="grid-content"><Solver></Solver></div></el-col>-->
       </el-row>
     </div>
 </template>

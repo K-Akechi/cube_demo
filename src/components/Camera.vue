@@ -12,31 +12,49 @@
     <el-col :span="4">
       <el-row><canvas ref="canvas1" width="120" height="120"></canvas></el-row>
       <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 1">Yellow</el-button></el-row>
+      <el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
+        <el-button size="small" type="primary" @click="currentNumber = 1">点击上传</el-button>
+      </el-upload>
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas2" width="120" height="120"></canvas></el-row>
       <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 2">Blue</el-button></el-row>
+      <el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
+        <el-button size="small" type="primary" @click="currentNumber = 2">点击上传</el-button>
+      </el-upload>
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas3" width="120" height="120"></canvas></el-row>
       <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 3">Orange</el-button></el-row>
+      <el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
+        <el-button size="small" type="primary" @click="currentNumber = 3">点击上传</el-button>
+      </el-upload>
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas4" width="120" height="120"></canvas></el-row>
       <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 4">White</el-button></el-row>
+      <el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
+        <el-button size="small" type="primary" @click="currentNumber = 4">点击上传</el-button>
+      </el-upload>
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas5" width="120" height="120"></canvas></el-row>
       <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 5">Green</el-button></el-row>
+      <el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
+        <el-button size="small" type="primary" @click="currentNumber = 5">点击上传</el-button>
+      </el-upload>
     </el-col>
     <el-col :span="4">
       <el-row><canvas ref="canvas6" width="120" height="120"></canvas></el-row>
       <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 6">Red</el-button></el-row>
+      <el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
+        <el-button size="small" type="primary" @click="currentNumber = 6">点击上传</el-button>
+      </el-upload>
     </el-col>
-    <el-dialog width="40%" title="snap" :visible.sync="innerVisible" ref="dialog2" @open="open()" append-to-body>
+    <el-dialog width="40%" title="请贴紧左侧边框" :visible.sync="innerVisible" ref="dialog2" @open="open()" append-to-body>
 
       <div slot="footer" class="dialog-footer">
-        <video ref="video" width="160" height="120" autoplay></video>
+        <video ref="video" width="320" height="240" autoplay></video>
         <el-button @click="innerVisible = false">取 消</el-button>
         <el-button ref="snap" type="primary" @click="draw()">拍 摄</el-button>
       </div>
@@ -59,6 +77,7 @@
         },
         data: () => ({
             video: {},
+            fileList: [],
             // localstream: undefined,
             currentNumber: 0,
             innerVisible: false,
@@ -108,6 +127,38 @@
 
             open(){
                 this.camera('environment')
+            },
+
+            uploadImage(file, fileList){
+                console.log(file);
+                console.log(this.currentNumber);
+                let imageURL = URL.createObjectURL(file.raw);
+                console.log(imageURL);
+                let ctx;
+                if (this.currentNumber === 1) {
+                    ctx = this.$refs.canvas1.getContext('2d')
+                }
+                else if (this.currentNumber === 2){
+                    ctx = this.$refs.canvas2.getContext('2d')
+                }
+                else if (this.currentNumber === 3){
+                    ctx = this.$refs.canvas3.getContext('2d')
+                }
+                else if (this.currentNumber === 4){
+                    ctx = this.$refs.canvas4.getContext('2d')
+                }
+                else if (this.currentNumber === 5){
+                    ctx = this.$refs.canvas5.getContext('2d')
+                }
+                else {
+                    ctx = this.$refs.canvas6.getContext('2d')
+                }
+                let img = new Image();
+                img.src = imageURL;
+                img.onload = function(){
+                    ctx.drawImage(img, 0, 0, 120, 120);
+                };
+
             },
 
             draw(){
@@ -190,7 +241,8 @@
                     console.log(error)
                 });
                 if (this.success === false)
-                    alert('请重新录入');
+                    this.$message.warning('请重新录入');
+                    // alert('请重新录入');
                 else{
                     this.$emit('initcube', this.cube, this.trans);
 
