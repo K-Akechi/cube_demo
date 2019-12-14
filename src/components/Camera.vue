@@ -83,7 +83,7 @@
             innerVisible: false,
             outerVisible: false,
             cube: [],
-            success: false,
+            success: true,
             trans: []
         }),
         methods: {
