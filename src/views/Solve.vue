@@ -23,8 +23,40 @@
             }
         },
         methods: {
-            init() {
-
+            init(cube, trans) {
+                console.log(cube);
+                console.log(trans);
+                let flatten = [];
+                for (let i=0; i<trans.length; i++){
+                    if (trans[i] === "U2"){
+                        flatten.push("U");
+                        flatten.push("U")
+                    }
+                    else if (trans[i] === "F2"){
+                        flatten.push("F");
+                        flatten.push("F");
+                    }
+                    else if (trans[i] === "L2"){
+                        flatten.push("L");
+                        flatten.push("L");
+                    }
+                    else if (trans[i] === "R2"){
+                        flatten.push("R");
+                        flatten.push("R");
+                    }
+                    else if (trans[i] === "B2"){
+                        flatten.push("B");
+                        flatten.push("B");
+                    }
+                    else if (trans[i] === "D2"){
+                        flatten.push("D");
+                        flatten.push("D");
+                    }
+                    else
+                        flatten.push(trans[i]);
+                }
+                console.log(cube);
+                console.log(flatten);
             }
         }
     }
