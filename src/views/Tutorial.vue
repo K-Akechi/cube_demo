@@ -1,17 +1,20 @@
 <template>
   <div>
-    <el-dropdown>
-      <span class="el-dropdown-link">
-        CASE<i class="el-icon-arrow-down el-icon--right"></i>
-      </span>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>case1</el-dropdown-item>
-        <el-dropdown-item disabled>case2</el-dropdown-item>
-        <el-dropdown-item disabled>case3</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
-    <el-row>
 
+    <el-row>
+<!--      <div class="dropdown">-->
+<!--        <el-dropdown>-->
+<!--      <span class="el-dropdown-link">-->
+<!--        CASE<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
+<!--      </span>-->
+<!--          <el-dropdown-menu slot="dropdown">-->
+<!--            <el-dropdown-item>case1</el-dropdown-item>-->
+<!--            <el-dropdown-item disabled>case2</el-dropdown-item>-->
+<!--            <el-dropdown-item disabled>case3</el-dropdown-item>-->
+<!--          </el-dropdown-menu>-->
+<!--        </el-dropdown>-->
+<!--      </div>-->
+      <div class="content">{{content}}</div>
       <div><CubeCore ref="cube"></CubeCore></div>
       <div class="button-group">
       <button name = "IN" id = 1 @click="init()">初始化</button>
@@ -27,12 +30,13 @@
         name: "Tutorial",
         components: {CubeCore},
         data: () => ({
-            content: "To be updated",
+            content: "hint",
             success: null,
             cube: [],
             trans: [],
             answer: [],
-            finish_cube: []
+            finish_cube: [],
+            is_init: true,
         }),
         methods:{
             async init(){
@@ -89,14 +93,14 @@
               console.log(this.cube);
               console.log(flatten);
               this.$refs.cube.generateparams(flatten);
-              this.$refs.cube.isfast = true;
-              this.play();
+              // this.$refs.cube.isfast = true;
+              // this.play();
               this.$message.success('初始化完成！');
-              setTimeout(()=>{this.$refs.cube.params = []}, 1000);
+              this.content = '请点击播放，按以下公式初始化：' + flatten + '\n' + '再按播放求解'
             },
             play(){
-                console.log(this.$refs.cube.params.length === 0);
-                if (this.$refs.cube.params.length === 0){
+                console.log(this.$refs.cube.params.length);
+                if (!this.is_init){
                     let flatten = [];
                     for (let i=0; i<this.answer.length; i++){
                         if (this.answer[i] === "U2"){
@@ -129,6 +133,9 @@
                     this.$refs.cube.generateparams(flatten);
                     this.$refs.cube.isfast = false;
                 }
+                else {
+                    this.is_init = false;
+                }
                 this.$refs.cube.count += 1;
                 this.$refs.cube.play();
             }
@@ -140,9 +147,15 @@
   .el-dropdown-link {
     cursor: pointer;
     color: #409EFF;
-    float: left;
+
   }
   .el-icon-arrow-down {
     font-size: 12px;
+  }
+  .dropdown{
+    float: left;
+  }
+  .content{
+    font-size: 20px;
   }
 </style>
