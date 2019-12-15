@@ -70,8 +70,10 @@
                 this.$refs.cube.generateparams(flatten);
                 this.$refs.cube.isfast = true;
                 this.$refs.cube.cubeInitial = cube;
+                this.play();
                 console.log(this.$refs.cube.params);
-                this.$message.info("录入完成！点击播放初始化");
+                this.$message.success("录入完成！");
+                setTimeout(()=>{this.$refs.cube.params = []}, 1000);
             },
             reset(){
                 this.$refs.cube.reset()

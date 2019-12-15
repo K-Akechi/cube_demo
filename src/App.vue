@@ -5,7 +5,7 @@
       <h1><img src="./assets/logo2.png" alt="">Easy Cube by Sword Y.</h1>
       </el-header>
       <el-main>
-        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" router="routerStatus">
+        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" router>
           <el-menu-item index="1" route="/">Playground</el-menu-item>
           <el-menu-item index="2" route="/solve">Solver</el-menu-item>
           <el-menu-item index="3" route="/tutorial">Tutorial</el-menu-item>
@@ -26,7 +26,7 @@ export default {
     data() {
         return {
             activeIndex: '1',
-            routerStatus: true,
+            // routerStatus: true,
         };
     },
     methods: {

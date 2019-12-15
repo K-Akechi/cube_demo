@@ -114,6 +114,7 @@ export default {
           this.$message.warning('solve error');
 
       this.generateparams(this.solution_with_mirror);
+      this.$message.success('求解成功！点击播放或单步执行');
       console.log("-----------------------------------------------------------------------");
       for (let i = 0; i < this.params.length && i < 10; i++) {
         console.log(this.params[i].direction, this.params[i].clockwise, i);
