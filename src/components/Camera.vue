@@ -10,46 +10,46 @@
   <!--    </el-dialog>-->
   <el-row :gutter="20">
     <el-col :span="4">
-      <el-row><canvas ref="canvas1" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 1">Yellow</el-button></el-row>
-      <el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
-        <el-button size="small" type="primary" @click="currentNumber = 1">点击上传</el-button>
-      </el-upload>
+      <div class="canvas-content"><canvas ref="canvas1" width="120" height="120"></canvas></div>
+      <div class="button-content"><el-button type="text" @click="innerVisible = true, currentNumber = 1">Yellow</el-button></div>
+      <div class="button-content"><el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
+        <el-button size="small" type="primary" @click="currentNumber = 1">上传</el-button>
+      </el-upload></div>
     </el-col>
     <el-col :span="4">
-      <el-row><canvas ref="canvas2" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 2">Blue</el-button></el-row>
-      <el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
-        <el-button size="small" type="primary" @click="currentNumber = 2">点击上传</el-button>
-      </el-upload>
+      <div class="canvas-content"><canvas ref="canvas2" width="120" height="120"></canvas></div>
+      <div class="button-content"><el-button type="text" @click="innerVisible = true, currentNumber = 2">Blue</el-button></div>
+      <div class="button-content"> <el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
+        <el-button size="small" type="primary" @click="currentNumber = 2">上传</el-button>
+      </el-upload></div>
     </el-col>
     <el-col :span="4">
-      <el-row><canvas ref="canvas3" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 3">Orange</el-button></el-row>
-      <el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
-        <el-button size="small" type="primary" @click="currentNumber = 3">点击上传</el-button>
-      </el-upload>
+      <div class="canvas-content"><canvas ref="canvas3" width="120" height="120"></canvas></div>
+      <div class="button-content"><el-button type="text" @click="innerVisible = true, currentNumber = 3">Orange</el-button></div>
+      <div class="button-content"><el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
+        <el-button size="small" type="primary" @click="currentNumber = 3">上传</el-button>
+      </el-upload></div>
     </el-col>
     <el-col :span="4">
-      <el-row><canvas ref="canvas4" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 4">White</el-button></el-row>
-      <el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
-        <el-button size="small" type="primary" @click="currentNumber = 4">点击上传</el-button>
-      </el-upload>
+      <div class="canvas-content"><canvas ref="canvas4" width="120" height="120"></canvas></div>
+      <div class="button-content"><el-button type="text" @click="innerVisible = true, currentNumber = 4">White</el-button></div>
+      <div class="button-content"><el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
+        <el-button size="small" type="primary" @click="currentNumber = 4">上传</el-button>
+      </el-upload></div>
     </el-col>
     <el-col :span="4">
-      <el-row><canvas ref="canvas5" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 5">Green</el-button></el-row>
-      <el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
-        <el-button size="small" type="primary" @click="currentNumber = 5">点击上传</el-button>
-      </el-upload>
+      <div class="canvas-content"><canvas ref="canvas5" width="120" height="120"></canvas></div>
+      <div class="button-content"><el-button type="text" @click="innerVisible = true, currentNumber = 5">Green</el-button></div>
+      <div class="button-content"><el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
+        <el-button size="small" type="primary" @click="currentNumber = 5">上传</el-button>
+      </el-upload></div>
     </el-col>
     <el-col :span="4">
-      <el-row><canvas ref="canvas6" width="120" height="120"></canvas></el-row>
-      <el-row><el-button type="text" @click="innerVisible = true, currentNumber = 6">Red</el-button></el-row>
-      <el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
-        <el-button size="small" type="primary" @click="currentNumber = 6">点击上传</el-button>
-      </el-upload>
+      <div class="canvas-content"><canvas ref="canvas6" width="120" height="120"></canvas></div>
+      <div class="button-content"><el-button type="text" @click="innerVisible = true, currentNumber = 6">Red</el-button></div>
+      <div class="button-content"><el-upload class="upload-demo" action="" :on-change="uploadImage" accept="image/jpeg, image/png" :show-file-list="false">
+        <el-button size="small" type="primary" @click="currentNumber = 6">上传</el-button>
+      </el-upload></div>
     </el-col>
     <el-dialog width="40%" title="请贴紧左侧边框" :visible.sync="innerVisible" ref="dialog2" @open="open()" append-to-body>
 
@@ -317,6 +317,13 @@
   .el-col {
     border-radius: 4px;
   }
+  .canvas-content{
+    max-height: 100px;
+  }
+  .button-content{
+    max-height: 100px;
+  }
+
   video{
     object-fit: fill;
   }
