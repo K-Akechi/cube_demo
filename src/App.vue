@@ -8,7 +8,15 @@
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" router>
           <el-menu-item index="1" route="/">Playground</el-menu-item>
           <el-menu-item index="2" route="/solve">Solver</el-menu-item>
-          <el-menu-item index="3" route="/tutorial">Tutorial</el-menu-item>
+          <el-submenu index="3">
+            <template slot="title">Tutorial</template>
+            <el-menu-item index="3-1" route="/tutorial">右手中棱归位</el-menu-item>
+            <el-menu-item index="3-2" disabled>左手中棱归位</el-menu-item>
+            <el-menu-item index="3-3" disabled>底层十字</el-menu-item>
+            <el-menu-item index="3-4" disabled>底面复原</el-menu-item>
+            <el-menu-item index="3-5" disabled>底棱归位</el-menu-item>
+          </el-submenu>
+<!--          <el-menu-item index="3" route="/tutorial">Tutorial</el-menu-item>-->
           <el-menu-item index="4" route="/quiz">Quiz</el-menu-item>
         </el-menu>
         <router-view/>
