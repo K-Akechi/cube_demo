@@ -171,13 +171,25 @@ export default {
           param.direction = 'z';
           param.clockwise = -1;
         }
+        else if (params[i] === "z'") {
+          param.direction = 'z';
+          param.clockwise = 1;
+        }
         else if (params[i] === "x") {
           param.direction = 'x';
           param.clockwise = -1;
         }
+        else if (params[i] === "x'") {
+          param.direction = 'x';
+          param.clockwise = 1;
+        }
         else if (params[i] === "y") {
           param.direction = 'y';
           param.clockwise = -1;
+        }
+        else if (params[i] === "y'") {
+          param.direction = 'y';
+          param.clockwise = 1;
         }
         else if (params[i] === "L") {
           param.direction = 'l';
@@ -292,7 +304,11 @@ export default {
       let coordinate = '';
       let position = 0;
 
-      let T = 15;
+      if (direction.length > 1 && direction[1] === "'") {
+        clockwise = 1;
+        direction = direction[0]
+      }
+
       switch (direction) {
         case 'r':
           coordinate = 'y';
@@ -319,52 +335,26 @@ export default {
           position = 1;
           break;
         case 'z':
-        //   let state_temp_z = [this.state[1], this.state[3], this.state[2], this.state[4], this.state[0], this.state[5]];
-        //   for(let i = 2; i <= 5; i = i + 3) {
-        //     state_temp_z[i][0][0] = this.state[i][0][2];
-        //     state_temp_z[i][0][1] = this.state[i][1][2];
-        //     state_temp_z[i][0][2] = this.state[i][2][2];
-        //     state_temp_z[i][1][0] = this.state[i][0][1];
-        //     state_temp_z[i][1][2] = this.state[i][2][1];
-        //     state_temp_z[i][2][0] = this.state[i][0][0];
-        //     state_temp_z[i][2][1] = this.state[i][1][0];
-        //     state_temp_z[i][2][2] = this.state[i][1][2];
-        // }
-        //   this.state = state_temp_z;
-        //   console.log(this.state)
           if (this.isfast) {
-            this.rotateY = (this.rotateY + 90 * (-clockwise) + 360) % 360;
+            this.rotateY = (this.rotateY + 90 * (clockwise) + 360) % 360;
           }
           else {
-            var r = this.rotateY;
-            for(var i = 1; i <= T; i++) {
+            for(var i = 1; i <= 90; i++) {
                 setTimeout(() => {
-                    this.rotateY = (r + i * (90 / T) * (-clockwise) + 360) % 360;
-                }, 500);
+                   this.rotateY = (this.rotateY + clockwise + 360) % 360;
+                }, i * 1);
             }
           }
           break;
         case 'x':
-          // let state_temp_x = [this.state[5], this.state[1], this.state[0], this.state[4], this.state[0], this.state[5]];
-          // for(let i = 2; i <= 5; i = i + 3) {
-          //   state_temp[i][0][0] = this.state[i][0][2];
-          //   state_temp[i][0][1] = this.state[i][1][2];
-          //   state_temp[i][0][2] = this.state[i][2][2];
-          //   state_temp[i][1][0] = this.state[i][0][1];
-          //   state_temp[i][1][2] = this.state[i][2][1];
-          //   state_temp[i][2][0] = this.state[i][0][0];
-          //   state_temp[i][2][1] = this.state[i][1][0];
-          //   state_temp[i][2][2] = this.state[i][1][2];
-          // }
           if (this.isfast) {
-              this.rotateX = (this.rotateX + 90 * (-clockwise) + 360) % 360;
+              this.rotateX = (this.rotateX + 90 * (clockwise) + 360) % 360;
           }
           else {
-              var r = this.rotateX;
-              for(var i = 1; i <= T; i++) {
+              for(var i = 1; i <= 90; i++) {
                   setTimeout(() => {
-                      this.rotateX = (r + i * (90 / T) * (-clockwise) + 360) % 360;
-                  }, 500);
+                      this.rotateX = (this.rotateX + clockwise + 360) % 360;
+                  }, i * 1);
               }
           }
           break;
@@ -373,15 +363,16 @@ export default {
                 this.rotateZ = (this.rotateZ + 90 * (-clockwise) + 360) % 360;
             }
             else {
-                var r = this.rotateZ;
                 for (let i = 1; i <= 90; i++) {
                 setTimeout(() => {
-                    this.rotateZ = (r + i * (90 / T) * (-clockwise) + 360) % 360;
-                }, 500);
+                    this.rotateZ = (this.rotateZ - clockwise + 360) % 360;
+                }, i * 1);
               }
             }
-            break;        default:
-          console.log('error direction')
+            break;
+          default:
+            debugger;
+            console.log('error direction ' + direction)
       }
       let speed = 0;
       let speed_b = 0;
